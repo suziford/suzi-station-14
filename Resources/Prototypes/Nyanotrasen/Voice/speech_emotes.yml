@@ -8,11 +8,12 @@
   whitelist:
     tags:
     - FelinidEmotes
+    - HarpyEmotes
     - ReptilianEmotes
   blacklist:
     components:
     - BorgChassis
-  chatMessages: [hisses.]
+  chatMessages: ["chat-emote-msg-cathisses"]
   chatTriggers:
     - hiss
     - hisses
@@ -27,10 +28,11 @@
   whitelist:
     tags:
     - FelinidEmotes
+    - HarpyEmotes
   blacklist:
     components:
     - BorgChassis
-  chatMessages: [meows.]
+  chatMessages: ["chat-emote-msg-catmeow"]
   chatTriggers:
     - meow
     - meows
@@ -51,10 +53,11 @@
   whitelist:
     tags:
     - FelinidEmotes
+    - HarpyEmotes
   blacklist:
     components:
     - BorgChassis
-  chatMessages: [mews.]
+  chatMessages: ["chat-emote-msg-mew"]
   chatTriggers:
     - mew
     - mews
@@ -69,10 +72,11 @@
   whitelist:
     tags:
     - FelinidEmotes
+    - HarpyEmotes
   blacklist:
     components:
     - BorgChassis
-  chatMessages: [growls.]
+  chatMessages: ["chat-emote-msg-growl"]
   chatTriggers:
     - growl
     - growls
@@ -87,11 +91,12 @@
   whitelist:
     tags:
     - FelinidEmotes
+    - HarpyEmotes
     - ReptilianEmotes # Omu
   blacklist:
     components:
     - BorgChassis
-  chatMessages: [purrs.]
+  chatMessages: ["chat-emote-msg-purr"]
   chatTriggers:
     - purr
     - purrs

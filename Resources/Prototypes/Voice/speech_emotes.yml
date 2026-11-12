@@ -22,6 +22,17 @@
     - yells
     - yelled
     - yelling
+    # CorvaxGoob-Localization-Start
+    - кричит
+    - кричит.
+    - кричит!
+    - орёт
+    - орёт.
+    - орёт!
+    - визжит
+    - визжит.
+    - визжит!
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Laugh
@@ -48,6 +59,15 @@
     - chortle
     - chortles
     - chortling
+    # CorvaxGoob-Localization-Start
+    - смеется
+    - смеётся
+    - хохочет
+    - хихикает
+    - хихикнул
+    - хихикнула
+    - ржёт
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Honk
@@ -66,6 +86,10 @@
     - honks
     - honked
     - honking
+    # CorvaxGoob-Localization-Start
+    - хонк
+    - хонкает
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Sigh
@@ -83,6 +107,11 @@
     - sigh
     - sighs
     - sighed
+    # CorvaxGoob-Localization-Start
+    - вздыхает
+    - вздохнул
+    - вздохнула
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Whistle
@@ -100,6 +129,10 @@
     - whistle
     - whistles
     - whistleblowing
+    # CorvaxGoob-Localization-Start
+    - свистит
+    - свистнул
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Crying
@@ -120,6 +153,10 @@
     - sob
     - sobs
     - sobbing
+    # CorvaxGoob-Localization-Start
+    - плачет
+    - рыдает
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Squish
@@ -141,6 +178,9 @@
     - squish
     - squishing
     - squishes
+    # CorvaxGoob-Localization-Start
+    - хлюпает
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Chitter
@@ -149,6 +189,8 @@
   available: false
   icon: Interface/Emotes/chitter.png
   whitelist:
+    tags: 
+    - HarpyEmotes # Omu, allow harpy to chitter
     components:
     - Vocal
   blacklist:
@@ -159,6 +201,9 @@
    - chitter
    - chitters
    - chittered
+   # CorvaxGoob-Localization-Start
+   - стрекочет
+   # CorvaxGoob-Localization-End
 
 - type: emote
   id: Squeak
@@ -167,6 +212,8 @@
   available: false
   icon: Interface/Emotes/squeak.png
   whitelist:
+    tags: 
+    - HarpyEmotes # Omu, allow harpy to squeak
     components:
       - Vocal
   blacklist:
@@ -177,6 +224,9 @@
    - squeak
    - squeaks
    - squeaked
+   # CorvaxGoob-Localization-Start
+   - пищит
+   # CorvaxGoob-Localization-End
 
 - type: emote
   id: Click
@@ -185,6 +235,8 @@
   available: false
   icon: Interface/Emotes/click.png
   whitelist:
+    tags: 
+    - HarpyEmotes # Omu, allow harpy to click
     components:
     - Vocal
   blacklist:
@@ -194,6 +246,10 @@
   chatTriggers:
    - click
    - clicks
+   # CorvaxGoob-Localization-Start
+   - клац
+   - клацает
+   # CorvaxGoob-Localization-End
 
 # Vulpkanin # Goob, not yet.
 #- type: emote
@@ -303,6 +359,15 @@
     - claps
     - clapping
     - clapped
+    # CorvaxGoob-Localization-Start
+    - хлопает
+    - хлопнул
+    - хлопнула
+    - хлопает в ладоши
+    - хлопнул в ладоши
+    - хлопнула в ладоши
+    - апплодирует
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: ClapSingle
@@ -342,6 +407,20 @@
     - snaps their fingers
     - snapping fingers
     - snapped fingers
+    # CorvaxGoob-Localization-Start
+    - щелкает
+    - щелкнул
+    - щелкнула
+    - щёлкает
+    - щёлкнул
+    - щёлкнула
+    - щелкает пальцами
+    - щелкнул пальцами
+    - щелкнула пальцами
+    - щёлкает пальцами
+    - щёлкнул пальцами
+    - щёлкнула пальцами
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Thump
@@ -367,6 +446,13 @@
     - thumps her tail
     - thumps his tail
     - thumps its tail
+    # CorvaxGoob-Localization-Start
+    - стучит хвостом
+    - стукнул хвостом
+    - стукнула хвостом
+    - стукнул своим хвостом
+    - стукнула своим хвостом
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Salute
@@ -383,6 +469,12 @@
   chatTriggers:
     - salute
     - salutes
+    # CorvaxGoob-Localization-Start
+    - салютует
+    - отдаёт честь
+    - отдал честь
+    - отдала честь
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Gasp
@@ -440,6 +532,11 @@
     - buzz
     - buzzed
     - buzzes
+    # CorvaxGoob-Localization-Start
+    - жужжит
+    - зажужжал
+    - зажужжала
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Weh
@@ -450,6 +547,7 @@
   whitelist:
     tags:
     - ReptilianEmotes # Goob - restrict wehs to the OG lizz
+    - HarpyEmotes # Goob - harpy can also weh
   blacklist:
     tags:
     - SiliconEmotes
@@ -461,9 +559,14 @@
   id: Hew
   name: chat-emote-name-hew
   category: Vocal
-  available: false # Goob - only from JuiceThatMakesYouHew
   icon: Interface/Emotes/hew.png
   chatMessages: ["chat-emote-msg-hew"]
+  whitelist:
+    tags:
+      - HarpyEmotes # Omu, allow harpy to hew
+  chatTriggers: # Omu, allow harpy to hew
+    - hew 
+    - hews
 
 - type: emote
   id: Chirp
@@ -484,6 +587,9 @@
     - chirps
     - chirped
     - chirping
+    # CorvaxGoob-Localization-Start
+    - чирикает
+    # CorvaxGoob-Localization-End
 
 # Machine Emotes
 - type: emote
@@ -498,11 +604,15 @@
     - Explosive
     tags:
     - SiliconEmotes
+    - HarpyEmotes # Goob - more harpy emotes
   chatTriggers:
     - beep
     - beeps
     - beeped
     - beeping
+    # CorvaxGoob-Localization-Start
+    - бип
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Chime
@@ -515,11 +625,15 @@
     - Silicon
     tags:
     - SiliconEmotes
+    - HarpyEmotes # Goob - more harpy emotes
   chatTriggers:
     - chime
     - chimes
     - chimed
     - chiming
+    # CorvaxGoob-Localization-Start
+    - дзынь
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Buzz-Two
@@ -532,6 +646,7 @@
     - Silicon
     tags:
     - SiliconEmotes
+    - HarpyEmotes # Goob - more harpy emotes
   chatTriggers:
     - buzztwice
     - buzzstwice
@@ -543,6 +658,14 @@
     - buzzes twice
     - buzzing twice
     - buzzed twice
+    # CorvaxGoob-Localization-Start
+    - бипбуп
+    - бип буп
+    - бип-буп
+    - бипбип
+    - бип бип
+    - бип-бип
+    # CorvaxGoob-Localization-End
 
 - type: emote
   id: Ping
@@ -555,8 +678,12 @@
     - Silicon
     tags:
     - SiliconEmotes
+    - HarpyEmotes # Goob - more harpy emotes
   chatTriggers:
     - ping
     - pings
     - pinged
     - pinging
+    # CorvaxGoob-Localization-Start
+    - пинг
+    # CorvaxGoob-Localization-End

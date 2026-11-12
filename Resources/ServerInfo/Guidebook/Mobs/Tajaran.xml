@@ -3,29 +3,26 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <Document>
-  # Tajaran
+  # Таяран
 
   <Box>
     <GuideEntityEmbed Entity="MobTajaran" Caption=""/>
   </Box>
 
-  Tajara are a species of omnivorous, bipedal humanoids with features strongly resembling Terran felines.
-  Their most distinguishing traits include a layer of fur, large ears atop their heads, and a tail that aids in balance.
-  They hail from the icy moon of [color=turquoise]Ahdomai[/color], only relatively recently making their debut on the galactic stage.
-  Originally a clan-centric society, Tajara endured centuries of dictatorial rule.
-  Following a civil war, their government fractured, and power returned to the clans, where it remains to this day.
+  Таяран — это вид всеядных двуногих гуманоидов с чертами, сильно напоминающими земных кошек.
+  Их отличительные особенности включают слой шерсти, большие уши на голове и хвост, который помогает сохранять баланс.
+  Они происходят с ледяной луны [color=turquoise]Адомай[/color] и относительно недавно появились на галактической арене.
+  Изначально их общество было клановым, и на протяжении веков они жили под диктаторским правлением.
+  После гражданской войны их правительство распалось, и власть вернулась к кланам, где она находится и по сей день.
 
-  ## Benefits
+  ## Механика
 
-  - Their soft feet allow them to [color=#1e90ff]walk shoeless without making noise[/color].
-  - They can [color=#1e90ff]fit into duffel bags[/color].
-  - They use their claws for unarmed attacks, dealing [color=#ec3a3a]Slash[/color] and [color=#ec3a3a]Piercing[/color] damage.
-  - Their layer of fur makes them take [color=#1e90ff]20% less Cold damage.[/color]
+  Благодаря [color=yellow]малому росту[/color], Таяран [color=#ec3a3a]получают на 15% больше дробящего урона[/color], но также [color=#1e90ff]могут помещаться в сумки[/color].
 
-  ## Drawbacks
+  Слой их шерсти обеспечивает [color=#1e90ff]сопротивление холоду[/color], но при этом они [color=#ec3a3a]получают больше урона от тепла[/color].
 
-  - Due to their small stature, Tajara take [color=#ffa500]15% more Brute damage.[/color]
-  - They take [color=#ffa500]20% more Heat damage.[/color]
+  Для атак без оружия они используют когти, нанося [color=#ec3a3a]режущий[/color] и [color=#ec3a3a]колющий[/color] урон.
 
+  Благодаря природной ловкости они [color=#1e90ff]получают меньше урона от падений и ударов[/color], а мягкие лапы позволяют им [color=#1e90ff]ходить босиком, не издавая шума[/color].
 
 </Document>

@@ -20,6 +20,8 @@
   chatTriggers:
   - boops
   whitelist:
+    tags:
+    - HarpyEmotes # Goob - more harpy emotes
     components:
     - Silicon
     - BorgChassis
@@ -32,6 +34,8 @@
   chatTriggers:
   - whirrs
   whitelist:
+    tags:
+    - HarpyEmotes # Goob - more harpy emotes
     components:
     - Silicon
     - BorgChassis
@@ -43,6 +47,7 @@
   whitelist:
     tags:
     - ShadowkinEmotes
+    - HarpyEmotes
   blacklist:
     components:
     - BorgChassis
@@ -59,8 +64,8 @@
   sounds:
     Scream:
       collection: PlasmamanUnisexScreams
-    Belch: # Frontier
-      collection: Belch # Frontier
+    #Belch: # Frontier # CorvaxGoob-deleted Cringe - Belch
+    #  collection: Belch # Frontier
   sound:
     path: /Audio/Voice/Skeleton/skeleton_scream.ogg
 

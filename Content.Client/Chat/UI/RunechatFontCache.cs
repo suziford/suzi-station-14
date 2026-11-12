@@ -17,7 +17,15 @@ public sealed class RunechatFontCache
         if (_fonts.TryGetValue((path, size), out var font))
             return font;
 
-        font = new VectorFont(_resources.GetResource<FontResource>(path), size);
+        var primaryFont = new VectorFont(_resources.GetResource<FontResource>(path), size);
+        var isWhisper = path == RunechatStyle.WhisperFontPath;
+        var fallbackPath = isWhisper
+            ? RunechatStyle.WhisperFallbackFontPath
+            : RunechatStyle.FallbackFontPath;
+        // TinyUnicodeRus.ttf is authored at 16px/em vs Wormtown9k-Small.ttf's 8px/em (exactly 2x smaller per pt)
+        var fallbackSize = isWhisper ? size * 2 : size;
+        var fallbackFont = new VectorFont(_resources.GetResource<FontResource>(fallbackPath), fallbackSize);
+        font = new StackedFont(primaryFont, fallbackFont);
         _fonts[(path, size)] = font;
         return font;
     }

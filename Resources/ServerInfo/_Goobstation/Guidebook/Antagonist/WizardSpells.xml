@@ -3,41 +3,41 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <Document>
-# Wizard Spells
+# Заклинания Волшебника
   <Table Columns="6">
     <ColorBox>
       <Box>
-        Spell Name
+        Название заклинания
       </Box>
     </ColorBox>
     <ColorBox>
       <Box>
-        Cost
+        Стоимость
       </Box>
     </ColorBox>
     <ColorBox>
       <Box>
-        Robed?
+        Наличие мантии?
       </Box>
     </ColorBox>
     <ColorBox>
       <Box>
-        Cooldown
+        Перезарядка
       </Box>
     </ColorBox>
     <ColorBox>
       <Box>
-        Description
+        Описание
       </Box>
     </ColorBox>
     <ColorBox>
       <Box>
-        Invocation
+        Призыв
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Mime Malaise
+        Недуг Мима
       </Box>
     </ColorBox>
     <ColorBox>
@@ -47,7 +47,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -57,17 +57,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Turns your target into a mime that cannot break their vow.
+        Превращает вашу цель в мима, который не может нарушить свою клятву.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Banana Touch
+        Банановое касание
       </Box>
     </ColorBox>
     <ColorBox>
@@ -77,7 +77,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -87,7 +87,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Turns your target into a clumsy clown.
+        Превращает вашу цель в неуклюжего клоуна.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -97,7 +97,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Curse of the Cluwne
+        Проклятие Клувня
       </Box>
     </ColorBox>
     <ColorBox>
@@ -107,7 +107,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -117,7 +117,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Turns your target into a cluwne.
+        Превращает вашу цель в проклятого клувня.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -127,7 +127,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Magic Missile
+        Волшебная ракета
       </Box>
     </ColorBox>
     <ColorBox>
@@ -137,7 +137,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -147,7 +147,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Fires slow moving homing stunning projectiles at nearby targets.
+        Выпускает медленно движущиеся самонаводящиеся оглушающие снаряды по ближайшим целям.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -157,7 +157,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Disable\nTechnology
+        Отключатель\nТехнологий
       </Box>
     </ColorBox>
     <ColorBox>
@@ -167,7 +167,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -177,7 +177,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        EMPs a large area.
+        Создает ЕМП взрыв большой площади.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -187,7 +187,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Smoke
+        Дым
       </Box>
     </ColorBox>
     <ColorBox>
@@ -197,7 +197,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -207,17 +207,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Releases a cloud of choking smoke.
+        Выпускает облако удушливого дыма.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Repulse
+        Отталкивание
       </Box>
     </ColorBox>
     <ColorBox>
@@ -227,7 +227,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -237,7 +237,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Throws everything around you away.
+        Отбрасывает все, что тебя окружает, прочь.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -247,7 +247,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Stop Time
+        Остановить время
       </Box>
     </ColorBox>
     <ColorBox>
@@ -257,7 +257,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -267,7 +267,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Stops time in an area around you.
+        Останавливает время в пространстве вокруг вас.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -277,7 +277,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Corpse Explosion
+        Взрыв покойника
       </Box>
     </ColorBox>
     <ColorBox>
@@ -287,7 +287,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -297,7 +297,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Explodes a corpse, damaging and knocking down everyone around it. Caster is immune to the explosion.
+        Взрывает труп, нанося урон и сбивая с ног всех вокруг. Заклинатель невосприимчив к взрыву.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -307,7 +307,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Blind
+        Ослепление
       </Box>
     </ColorBox>
     <ColorBox>
@@ -317,7 +317,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -327,7 +327,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Blinds a target temporarily.
+        Временно ослепляет цель.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -337,7 +337,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Bind Soul
+        Связать душу
       </Box>
     </ColorBox>
     <ColorBox>
@@ -347,17 +347,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Makes you immortal, as long as your phylactery is intact.
+        Делает вас бессмертным, пока ваша филактерия цела.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -367,7 +367,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Mutate
+        Мутация
       </Box>
     </ColorBox>
     <ColorBox>
@@ -377,7 +377,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -387,7 +387,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Turns you into a hulk with laser eyes for 30 seconds.
+        Превращает вас в халка с лазерными глазами на 30 секунд.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -397,7 +397,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Tesla Blast
+        Взрыв Теслы
       </Box>
     </ColorBox>
     <ColorBox>
@@ -407,7 +407,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -417,7 +417,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Fires a tesla blast to a nearby enemy after 10 second charge.
+        Выстреливает зарядом тесла по ближайшему врагу после 10-секундного заряда.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -427,7 +427,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Lightning Bolt
+        Удар молнии
       </Box>
     </ColorBox>
     <ColorBox>
@@ -437,7 +437,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -447,7 +447,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Fires a lightning bolt at your target.
+        Стреляет молнией в вашу цель.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -457,7 +457,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Homing Toolbox
+        Самонаводящийся ящик
       </Box>
     </ColorBox>
     <ColorBox>
@@ -467,7 +467,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -477,7 +477,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Fires a homing toolbox that damages and knocks down the target.
+        Запускает самонаводящийся снаряд, который повреждает и сбивает цель с ног.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -487,7 +487,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Spell Cards
+        Карты заклинаний
       </Box>
     </ColorBox>
     <ColorBox>
@@ -497,7 +497,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -507,7 +507,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Fires up to 5 bursts of homing spell cards.
+        Выпускает до 5 очередей карт самонаводящихся заклинаний.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -517,7 +517,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Arcane Barrage
+        Тайный шквал
       </Box>
     </ColorBox>
     <ColorBox>
@@ -527,7 +527,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -537,17 +537,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Allows you to fire a rapid barrage of arcane bolts.
+        Позволяет вам быстро стрелять магическими разрядами.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Lesser Summon Guns
+        Призыв оружия
       </Box>
     </ColorBox>
     <ColorBox>
@@ -557,7 +557,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -567,17 +567,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Allows you to fire an unending stream of bolt-action rifles.
+        Позволяет вам стрелять бесконечным потоком из винтовок с затвором.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Curse of the Barnyard
+        Проклятие Стойла
       </Box>
     </ColorBox>
     <ColorBox>
@@ -587,7 +587,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -597,7 +597,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Curses your target, forcing them to wear animal mask and turning their speech into animal noises.
+        Проклинает вашу цель, заставляя ее носить маску животного и превращая ее речь в звериные звуки.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -607,7 +607,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Scream For Me
+        Крик Крови
       </Box>
     </ColorBox>
     <ColorBox>
@@ -617,7 +617,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -627,17 +627,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Spills all the target's blood.
+        Проливает всю кровь цели.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        [italic]SCREAM FOR ME!![/italic]
+        [italic]КРИЧИ ДЛЯ МЕНЯ!![/italic]
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Instant Summons
+        Мгновенный призыв
       </Box>
     </ColorBox>
     <ColorBox>
@@ -647,7 +647,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -657,7 +657,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Lets you mark any item and summon it at will.
+        Позволяет вам отметить любой предмет и вызвать его по своему желанию.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -667,7 +667,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Teleport
+        Телепорт
       </Box>
     </ColorBox>
     <ColorBox>
@@ -677,7 +677,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -687,7 +687,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Lets you teleport to any location on the station.
+        Позволяет вам телепортироваться в любое место на станции.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -697,7 +697,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        The Traps!
+        Ловушки!
       </Box>
     </ColorBox>
     <ColorBox>
@@ -707,7 +707,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -717,7 +717,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Summons 5 deadly traps around you.
+        Призовите 5 смертельных ловушек вокруг себя.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -727,7 +727,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Lesser Summon Bees
+        Призыв Пчел
       </Box>
     </ColorBox>
     <ColorBox>
@@ -737,7 +737,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -747,7 +747,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Summons a swarm of angry bees.
+        Вызывает рой разъяренных пчел.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -757,7 +757,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Summon Simians
+        Вызов Приматов
       </Box>
     </ColorBox>
     <ColorBox>
@@ -767,7 +767,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -777,7 +777,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Summons angry chimps and gorillas.
+        Призывает разъяренных шимпанзе и горилл.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -787,7 +787,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Exsanguinating Strike
+        Обескровливающий удар
       </Box>
     </ColorBox>
     <ColorBox>
@@ -797,7 +797,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -807,7 +807,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Empowers your weapon to deal more damage as well as to steal health and blood from your enemies.
+        Позволяет вашему оружию наносить больший урон, а также забирать здоровье и кровь у ваших врагов.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -817,7 +817,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Chuuni Invocations
+        Заклинания Чууни
       </Box>
     </ColorBox>
     <ColorBox>
@@ -827,17 +827,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Replaces your wizard hat with unremoveable medical eyepatch that still allows you to cast spells with your robes. Makes all of the spells require special incantations. Heals slightly after casting a spell.
+        Заменяет вашу шляпу волшебника на несъемную медицинскую повязку на глазу, которая по-прежнему позволяет вам произносить заклинания, не снимая мантии. Для всех заклинаний требуются специальные заклинания. После произнесения заклинания немного заживает.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -847,7 +847,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Swap
+        Обмен
       </Box>
     </ColorBox>
     <ColorBox>
@@ -857,7 +857,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -867,17 +867,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Swaps positions with your target.
+        Меняйтесь позициями со своей целью.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Soul Tap
+        Прикосновение к душе
       </Box>
     </ColorBox>
     <ColorBox>
@@ -887,7 +887,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -897,7 +897,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Trades 20 max health for a recharge of all of your spells.
+        Обменивает 20 единиц максимального здоровья на перезарядку всех ваших заклинаний.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -907,7 +907,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Thrown\nLightning
+        Метание\nМолний
       </Box>
     </ColorBox>
     <ColorBox>
@@ -917,7 +917,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -927,7 +927,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Allows you to throw a lightning bolt spell packet that stuns your enemies.
+        Позволяет вам использовать пакет заклинаний "молния", который оглушает ваших врагов.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -937,7 +937,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Blink
+        Мерцание
       </Box>
     </ColorBox>
     <ColorBox>
@@ -947,7 +947,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -957,17 +957,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Randomly teleports you a short distance.
+        Случайным образом телепортирует вас на небольшое расстояние.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Ethereal Jaunt
+        Эфирное Хождение
       </Box>
     </ColorBox>
     <ColorBox>
@@ -977,7 +977,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -987,17 +987,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Makes you invisible and allows you to pass through walls for a short time.
+        Делает вас невидимым и позволяет на короткое время проходить сквозь стены.
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        N/A
+        Н/Д
       </Box>
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Fireball
+        Огненный шар
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1007,7 +1007,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1017,7 +1017,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Shoots an explosive fireball at the click location.
+        Стреляет взрывчатым огненным шаром в место щелчка.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1027,7 +1027,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Rod Form
+        Форма стержня
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1037,7 +1037,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1047,7 +1047,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Turns you into an immovable rod for a short time.
+        На короткое время превращает вас в неподвижный стержень.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1057,7 +1057,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Force Wall
+        Силовая стена
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1067,7 +1067,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1077,7 +1077,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Summons a 3x1 magic wall that nobody except you can pass through.
+        Создает магическую стену размером 3х1, через которую никто, кроме вас, не сможет пройти.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1087,7 +1087,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Charge
+        Заряд
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1097,7 +1097,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1107,7 +1107,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Charges wands, staves or energy items.
+        Заряжает волшебные палочки, посохи или энергетические предметы.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1117,7 +1117,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Mind Swap
+        Обмен сознаниями
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1127,7 +1127,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1137,7 +1137,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Swaps minds with your target.
+        Обмениваетесь сознаниями со своей целью.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1147,7 +1147,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Smite
+        Поражение
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1157,7 +1157,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#4d2e2e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Yes
+        Да
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1167,7 +1167,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Gibs your target.
+        Уничтожает вашу цель.
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1177,7 +1177,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        Knock
+        Стук
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1187,7 +1187,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox Color="#2e422e">
       <Box HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="2">
-        No
+        Нет
       </Box>
     </ColorBox>
     <ColorBox>
@@ -1197,7 +1197,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     </ColorBox>
     <ColorBox>
       <Box HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="2">
-        Opens nearby doors and lockers.
+        Открывает ближайшие двери и шкафчики.
       </Box>
     </ColorBox>
     <ColorBox>

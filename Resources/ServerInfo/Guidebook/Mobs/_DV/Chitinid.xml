@@ -1,28 +1,26 @@
 <Document>
-  # Chitinid
+  # Хитиниды
 
   <Box>
     <GuideEntityEmbed Entity="MobChitinid" Caption=""/>
   </Box>
 
-  An industrious hymenoptera species, the Chitinid are strong and diligent. Thanks to evolution, they have grown an acute resistance to radiation, but not without its side effects.
+  Трудолюбивый вид перепончатокрылых, хитиниды сильны и усердны. Благодаря эволюции они приобрели острую устойчивость к радиации, но не без побочных эффектов.
 
-  ## Diet
+  ## Диета
+  - Могут есть сырое мясо.
 
-  - Can eat raw meat.
+  ## Преимущества
+  - Получают на 80% меньше урона от радиации, на 10% меньше от режущего, урона ушибами и колющего.
+  - Их тела естественным образом восстанавливаются от лёгкого радиационного урона до определённого предела, после чего они должны очиститься от накопленной радиации, выделяя небольшой камень [color=#ff0f0f]ПРЕДУПРЕЖДЕНИЕ: выделяемый хитцит слегка радиоактивен[/color].
+  - Лучше тянут и переносят предметы.
+  - Обладают биосветом.
 
-  ## Benefits
-
-  - Takes [color=#1e90ff]80% less Radiation damage, and 10% less Slash, Blunt and Piercing damage.[/color]
-  - Their bodies [color=#1e90ff]naturally recover from light radiation damage up to a point[/color]; once they accumulate enough radiation, they must purge it from their systems in the form of a small rock [color=#ff0f0f]WARNING: The Chitzite they expel is slightly radioactive [/color].
-  - They possess a bio light.
-
-  ## Drawbacks
-
-  - They take [color=#FFA500]15% more Shock damage[/color] due to their biology.
-  - Thanks to their overactive systems they get [color=#FFA500]hungry 33% faster.[/color]
-  - The cold does not agree with their biology and makes their [color=#FFA500]movement sluggish the colder it gets[/color]. The cold also harms them more than others, causing them to take [color=#FFA500]25% more damage from it. [/color][/color]
-  - Bug Blood cannot be synthesized from iron.
-  - Chitinid exoskeletons cannot be pierced by syringes and hyposprays.
+  ## Недостатки
+  - Получают на 15% больше урона от электричества из-за своей биологии.
+  - Их прочный панцирь не позволяет обычным шприцам их проколоть, для этого нужны гипоспреи.
+  - Благодаря их активному метаболизму они голодают на 33% быстрее.
+  - Холод плохо сочетается с их биологией и замедляет их передвижение, чем холоднее, тем сильнее замедление. Холод также вредит им больше, чем другим, из-за чего они получают на 25% больше урона от него.
+  - Насекомья кровь.
 
 </Document>

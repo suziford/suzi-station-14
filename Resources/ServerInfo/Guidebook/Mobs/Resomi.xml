@@ -3,31 +3,22 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <Document>
-  # Resomi
+  # Резоми
 
   <Box>
     <GuideEntityEmbed Entity="MobResomiDummy" Caption=""/>
   </Box>
 
-  Resomi are a small avian-like species that hail from an icy world.
+  Резоми — маленькая видоподобная птицам раса, происходящая с ледяной планеты.
 
-  ## Diet
+  Как и большинство животных рас, Резоми способны переваривать сырое мясо и другие неприготовленные животные белки.
 
-  - Like most other non-human species, Resomi are capable of digesting raw meat and other uncooked animal proteins.
+  Благодаря условиям родной планеты и аммиачной крови, Резоми невосприимчивы к любому урону от холода и сопутствующим эффектам.
+  В то же время, температуры, комфортные для большинства рас, они считают невыносимо жаркими, начиная страдать уже при 30°C.
 
-  ## Benefits
+  Вместе с особенностями термоустойчивости, они получают на 30% больше урона от тепла и урона ушибами.
 
-  - As a result of the conditions of their home planet and ammonia-based blood, Resomi are [color=#1e90ff]immune to any cold damage and other effects.[/color]
-  - Due to their small size, they can fit in duffelbags.  
-  - Their unarmed attack deals [color=#ec3a3a]Slash[/color] damage.
-  
-  ## Drawbacks
+  Из-за маленького размера они могут помещаться в сумках. Они также легче, что усложняет таскание других рас. Их атака без оружия наносит [color=#ec3a3a]режущий[/color] урон.
 
-  - They find temperatures that most other species find comfortable to be unbearably hot, finding themselves [color=#ffa500]suffering starting at just 30°C.[/color]
-  - Along with their temperature tolerances, they [color=#ffa500]take 30% more heat damage and 15% more brute damage.[/color]
-  - They have weaker bones.
-  - They weigh less, making it harder for them to pull other species.
-  - Resomi have [color=#ffa500]33% less blood[/color], allowing them to suffer from blood loss much sooner.
-
-
+  У них слабые кости.
 </Document>

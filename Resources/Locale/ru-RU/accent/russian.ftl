@@ -1,0 +1,14 @@
+accent-russian-words-1 = да
+accent-russian-words-replace-1 = DA
+accent-russian-words-2 = нет
+accent-russian-words-replace-2 = NYET
+accent-russian-words-3 = бабушка
+accent-russian-words-3-2 = бабка
+accent-russian-words-3-3 = пенсия
+accent-russian-words-replace-3 = BABUSHKA
+accent-russian-words-4 = друг
+accent-russian-words-replace-4 = KOMRAD
+accent-russian-words-5 = друзья
+accent-russian-words-replace-5 = KOMRADI
+accent-russian-words-6 = будьте здоровы
+accent-russian-words-replace-6 = NA ZDOROVJE

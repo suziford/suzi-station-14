@@ -465,7 +465,7 @@ public sealed partial class GoobCVars
     #region Voicechat
 
     public static readonly CVarDef<bool> VoiceChatEnabled =
-        CVarDef.Create("voice.enabled", false, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE, "Whether proximity voice chat is enabled.");
+        CVarDef.Create("voice.enabled", true, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE, "Whether proximity voice chat is enabled.");
 
     public static readonly CVarDef<float> VoiceChatRange =
         CVarDef.Create("voice.range", 10f, CVar.SERVER | CVar.REPLICATED, "Distance in tiles at which voice chat fades out completely.");
@@ -489,7 +489,7 @@ public sealed partial class GoobCVars
         CVarDef.Create("voice.radio_enabled", true, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE, "Whether players can speak over radio channels with voice chat.");
 
     public static readonly CVarDef<bool> VoiceChatRadioCommon =
-        CVarDef.Create("voice.radio_common", false, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE, "Whether voice chat is allowed on the Common radio channel.");
+        CVarDef.Create("voice.radio_common", true, CVar.SERVER | CVar.REPLICATED | CVar.ARCHIVE, "Whether voice chat is allowed on the Common radio channel.");
 
     public static readonly CVarDef<int> VoiceChatBitrate =
         CVarDef.Create("voice.bitrate", 64, CVar.SERVERONLY | CVar.ARCHIVE, "Voice bitrate sent to each client in kbps: 64 (16 kHz, best), 48, 32 (8 kHz), 24 or 16. Lower saves bandwidth at the cost of quality.");

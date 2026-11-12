@@ -1,24 +1,24 @@
 <Document>
-# Slasher
+# Мясник
 
-[color=#ac3a0d]An unstoppable 80's terror driven by vengeance, dread, and synth beats echoing through dark maintenance.[/color]
+[color=#ac3a0d]Неуловимый кошмар из 80-ых, движимый местью, ужасом и звуками синтезатора, отдающимися эхом в тёмных технических коридорах[/color]
 
-The Slasher is a relentless horror that stalks isolated crew, harvesting their souls and growing stronger with every victim. It thrives on fear, appearing and vanishing between flickers of light and fresh trails of blood.
+Мясник - это неумолимый ужас, ведущий охоту на одиноких членов экипажа. Он пожинает их души, крепчая с каждым убитым. Он живёт страхом, то появляясь, то исчезая между мерцанием ламп и свежими следами крови.
 
 <Box>
-  <GuideEntityEmbed Entity="ClothingHeadHatSlasherMask" Caption="Mask"/>
-  <GuideEntityEmbed Entity="SlasherMachete" Caption="Machete"/>
-  <GuideEntityEmbed Entity="SlasherMeatSpike" Caption="Meat Spike"/>
+  <GuideEntityEmbed Entity="ClothingHeadHatSlasherMask" Caption="Маска"/>
+  <GuideEntityEmbed Entity="SlasherMachete" Caption="Мачете"/>
+  <GuideEntityEmbed Entity="SlasherMeatSpike" Caption="Мясной крюк"/>
 </Box>
 
-  Unlike most midround antagonists the slasher starts off weak. For every soul they steal they gain that much more strength. If left unchecked they can quickly become a terrifying force.
+  В отличие от других мидраунд антагонистов, Мясник поначалу слаб. Однако с каждой похищенной душой его могущество растёт. Если вовремя его не остановить, он в мгновение ока станет неостановимой, вселяющей ужас силой.
 
-  ## Core Loop
-  1. Find isolated targets.
+  ## Цикл действий
+  1. Ищите одиноких жертв.
 
-  2. Incapacitate and absorb their soul.
+  2. Обездвижьте или убейте и поглотите их дущу.
 
-  3. Repeat.
+  3. Повторите.
 
   4. Once you reach 15 souls, an announcement warns the crew of your ascendance.
 
@@ -33,7 +33,25 @@ Fear is the Slashers power meter, shown by the [bold]Fear[/bold] alert.
 
 Stay seen to build your power and terror.
 
-  ## Abilities
+  ## Способности
+
+  [bold]Призвать мачете[/bold] – Вы в любой момент можете вернуть своё оружие. Это очень полезно, если вы остались безоружным или хотите швырнуть его в цель, чтобы быстро ранить её.
+
+  [bold]Украсть душу[/bold] – Можно использовать только на обездвиженной цели. За каждую похищенную душу вы получаете больше защиты и увеличенный урон. На живых целях способность гораздо эффективнее и даёт больше бонусов. Жертвы становятся [italic]бездушными[/italic] и получают случайный негативный пункт дьявольского условие.
+
+  [bold]Резня[/bold] – Невероятно мощная способность, привязанная к вашему особому мачете. При первом ударе вы наносите гораздо меньше урона, но чем больше попаданий совершаете, тем сильнее они становятся. С определённого удара вы начнёте отрубать конечности жертвы, а на 13-й удар — обезглавите её. Промах сбрасывает комбо.
+
+  [bold]Регенерация/Маньякиум[/bold] – Невероятно мощный источник исцеления. Он восстанавливает ваши силы и снимает любые ограничители. Платой за это служит очень долгая перезарядка.
+
+  [bold]Кровавый след[/bold] – Оставляйте за собой тянущийся след крови. Также во время действия играет музыка. Жуть!
+
+  [bold]Нематериальность / Материализация[/bold] – Исчезайте и вновь появляйтесь в материальном мире. Это ваш основной способ перемещения. Способность нельзя использовать, пока вы на виду. Она крайне ограничена, но очень сильна. Пока вы не материальны, перезарядка других способностей приостанавливается.
+
+  [bold]Вселение[/bold] – Временно возьмите под контроль тело жертвы. Имплант "Щит разума" блокирует эту способность.
+
+  [bold]Мясной крюк[/bold] – Вы способны воздвигнуть мясной крюк, на который можно насадить жертву. Это незаменимое средство для сбора душ, не позволяющее жертве ускользнуть.
+
+  [bold]Область дезориентации[/bold] – Вы ненадолго замедляете всех, кто находится рядом с вами. Очень полезно, чтобы застать экипаж врасплох.
 
 <Box>
   [tex path="_Goobstation/Actions/slashericons.rsi" state="SummonMachete" scale="2"/]
@@ -179,20 +197,15 @@ A few kits change how you play. Those are marked with a [bold]?[/bold] button in
 
   - [bold]Boogeyman[/bold] - gives up the incorporeal jaunt and sprinting for a faster walkspeed, invisibility in shadows, and a fear aura that prevents others from sprinting. [textlink="Boogeyman" link="SlasherBoogeyman"]
 
-  ## Crew Tips
-  [bold]Do not wander alone.[/bold]
-  - The Slasher is relatively weak when first appearing on station.
-  - As they steal souls, they become significantly tankier and deal much more damage.
-  - If you spot them, keep them in sight. they cannot escape to incorporeal form while observed.
-  - They are weak to holy damage. Coordinate with the chaplain if available.
-  - Tinfoil hats and mindshields prevent possession.
-  - Upon 15 souls stolen, an announcement warns the crew of their ascendance.
-  - Cameras can prevent them from exiting incorporeal form.
-  - Their cooldowns freeze while incorporeal.
-  - Group up and travel with others. the Slasher excels at picking off isolated targets.
-  - If they hard grab you and attempt to put you on a meatspike you can cancel it by shoving them.
-  - They cannot use guns.
-  - They have no critical state. They're either alive or dead.
+  ## Советы для экипажа
+  [bold]Не гуляйте в одиночку[/bold].
+  - Мясник относительно слаб, когда впервые появляется на станции.
+  - С каждой украденной душой он становятся всё более живучим, а его удары - смертоноснее.
+  - Если вам удалось застать Мясника врасплох, не выпускайте его из виду - пока вы на него смотрите, он не может сбежать.
+  - Маньяк уязвим к святому урону. Если ваши силы на исходе, зовите на помощь священника.
+  - Шапочки из фольги и имплант "Щит разума" предотвращают вселение!
+  - Как только будет похищено 15 душ, прозвучит объявление, предупреждающее экипаж.
+  - У него нет критического состояния. Он либо жив, либо мёртв.
 
-  [color=red][bold]You are the legend of the midnight massacre. make it feel like one.[/bold][/color]
+  [color=red][bold]Вы - воплощение легенды о полночной резне. Соответствуйте своему имени.[/bold][/color]
 </Document>

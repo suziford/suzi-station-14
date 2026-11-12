@@ -7,6 +7,8 @@ public static class RunechatStyle
 {
     public const string FontPath = "/Fonts/_ES/Grand9KPixelRegular.ttf";
     public const string WhisperFontPath = "/Fonts/_ES/Wormtown9k-Small.ttf";
+    public const string FallbackFontPath = "/Fonts/_Suziford/Grand9KPixelCyrillic.ttf";
+    public const string WhisperFallbackFontPath = "/Fonts/_Suziford/TinyUnicodeRus.ttf";
     public const int MinFontSize = 6;
     public const int MaxFontSize = 24;
     private const float DesignPixelsPerEm = 8f;
