@@ -292,19 +292,7 @@ public sealed partial class ChatUIController : UIController
         if (panel is null)
             return;
 
-        Color color;
-        if (panel.PanelOverride is StyleBoxFlat styleBoxFlat)
-            color = styleBoxFlat.BackgroundColor;
-        else if (panel.TryGetStyleProperty<StyleBox>(PanelContainer.StylePropertyPanel, out var style)
-                 && style is StyleBoxFlat propStyleBoxFlat)
-            color = propStyleBoxFlat.BackgroundColor;
-        else
-            color = Color.FromHex("#25252ADD");
-
-        panel.PanelOverride = new StyleBoxFlat
-        {
-            BackgroundColor = color.WithAlpha(opacity)
-        };
+        panel.ModulateSelfOverride = Color.White.WithAlpha(opacity); // Starlight-edit
     }
 
     public void SetMainChat(bool setting)

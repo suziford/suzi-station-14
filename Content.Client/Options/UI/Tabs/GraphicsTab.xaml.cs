@@ -27,20 +27,7 @@ public sealed partial class GraphicsTab : Control
         Control.AddOption(new OptionLightingQuality(Control, _cfg, DropDownLightingQuality));
         Control.AddOption(new OptionParticleQuality(Control, _cfg, DropDownParticleQuality)); // Starfall: Particle quality.
 
-        Control.AddOptionDropDown(
-            CVars.DisplayUIScale,
-            DropDownUIScale,
-            [
-                new OptionDropDownCVar<float>.ValueOption(
-                    0f,
-                    Loc.GetString("ui-options-scale-auto", ("scale", UserInterfaceManager.DefaultUIScale))),
-                new OptionDropDownCVar<float>.ValueOption(0.75f, Loc.GetString("ui-options-scale-75")),
-                new OptionDropDownCVar<float>.ValueOption(1.00f, Loc.GetString("ui-options-scale-100")),
-                new OptionDropDownCVar<float>.ValueOption(1.25f, Loc.GetString("ui-options-scale-125")),
-                new OptionDropDownCVar<float>.ValueOption(1.50f, Loc.GetString("ui-options-scale-150")),
-                new OptionDropDownCVar<float>.ValueOption(1.75f, Loc.GetString("ui-options-scale-175")),
-                new OptionDropDownCVar<float>.ValueOption(2.00f, Loc.GetString("ui-options-scale-200")),
-            ]);
+        // Starlight: UI scale moved to the interface tab (UITab).
 
         Control.AddOptionDropDown(
             CCVars.ViewportScalingFilterMode,

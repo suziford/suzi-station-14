@@ -4,6 +4,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Content.Shared.Mind;
+using Content.Shared.Roles;
 
 namespace Content.Shared.Administration;
 
@@ -22,7 +23,8 @@ public sealed record PlayerInfo(
     bool Connected,
     bool ActiveThisRound,
     bool IsGhost, // Goobstation
-    TimeSpan? OverallPlaytime)
+    TimeSpan? OverallPlaytime,
+    ProtoId<JobPrototype>? JobId = null) // Starlight-edit
 {
     private string? _playtimeString;
 

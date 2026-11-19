@@ -10,7 +10,7 @@ using Robust.Shared.Reflection;
 
 namespace Content.Client.Stylesheets
 {
-    public sealed class StylesheetManager : IStylesheetManager
+    public sealed partial class StylesheetManager : IStylesheetManager
     {
         [Dependency] private readonly ILogManager _logManager = default!;
         [Dependency] private readonly IUserInterfaceManager _userInterfaceManager = default!;
@@ -49,12 +49,13 @@ namespace Content.Client.Stylesheets
             UnusedSheetlets = [..tys];
 
             Stylesheets = new Dictionary<string, Stylesheet>();
-            SheetNanotrasen = Init(new NanotrasenStylesheet(new BaseStylesheet.NoConfig(), this));
+            SheetNanotrasen = Init(new NanotrasenStylesheet(ResolveStyleTheme(), this)); // Starlight: themed
             SheetSystem = Init(new SystemStylesheet(new BaseStylesheet.NoConfig(), this));
             SheetNano = new StyleNano(_resCache).Stylesheet; // TODO: REMOVE (obsolete)
             SheetSpace = new StyleSpace(_resCache).Stylesheet; // TODO: REMOVE (obsolete)
 
             _userInterfaceManager.Stylesheet = SheetNanotrasen;
+            InitializeStyleTheme(); // Starlight
 
             // warn about unused sheetlets
             if (UnusedSheetlets.Count > 0)

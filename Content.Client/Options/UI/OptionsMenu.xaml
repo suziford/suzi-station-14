@@ -3,11 +3,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <DefaultWindow xmlns="https://spacestation14.io"
+            xmlns:stabs="clr-namespace:Content.Client._Starlight.Options.UI.Tabs"
             xmlns:tabs="clr-namespace:Content.Client.Options.UI.Tabs"
+            xmlns:sc="clr-namespace:Content.Client._Starlight.UserInterface.Controls"
             Title="{Loc 'ui-options-title'}"
-            MinSize="800 450">
-    <TabContainer Name="Tabs" Access="Public">
+            MinSize="800 450"
+            SetSize="960 600">
+    <!-- Starlight-start -->
+    <sc:SectionNav Name="Sections" Access="Public" />
+    <BoxContainer Name="Pages" Visible="False">
         <tabs:MiscTab Name="MiscTab" />
+        <stabs:UITab Name="UITab" />
         <tabs:GraphicsTab Name="GraphicsTab" />
         <tabs:KeyRebindTab Name="KeyRebindTab" />
         <tabs:AudioTab Name="AudioTab" />
@@ -15,5 +21,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <tabs:AdminOptionsTab Name="AdminOptionsTab" />
         <tabs:NetworkTab Name="NetworkTab" />
         <tabs:CustomizationTab Name="CustomizationTab" /> <!-- Goob -->
-    </TabContainer>
+    </BoxContainer>
+    <!-- Starlight-end -->
 </DefaultWindow>

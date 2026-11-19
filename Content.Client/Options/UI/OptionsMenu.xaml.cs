@@ -18,14 +18,18 @@ namespace Content.Client.Options.UI
             RobustXamlLoader.Load(this);
             IoCManager.InjectDependencies(this);
 
-            Tabs.SetTabTitle(0, Loc.GetString("ui-options-tab-misc"));
-            Tabs.SetTabTitle(1, Loc.GetString("ui-options-tab-graphics"));
-            Tabs.SetTabTitle(2, Loc.GetString("ui-options-tab-controls"));
-            Tabs.SetTabTitle(3, Loc.GetString("ui-options-tab-audio"));
-            Tabs.SetTabTitle(4, Loc.GetString("ui-options-tab-accessibility"));
-            Tabs.SetTabTitle(5, Loc.GetString("ui-options-tab-admin"));
-            Tabs.SetTabTitle(6, Loc.GetString("ui-options-tab-network"));
-            Tabs.SetTabTitle(7, Loc.GetString("ui-options-tab-customization")); // Goob
+            // Starlight-start
+            Sections.AddSection(MiscTab, Loc.GetString("ui-options-tab-misc"));
+            Sections.AddSection(UITab, Loc.GetString("ui-options-tab-ui"));
+            Sections.AddSection(GraphicsTab, Loc.GetString("ui-options-tab-graphics"));
+            Sections.AddSection(KeyRebindTab, Loc.GetString("ui-options-tab-controls"));
+            Sections.AddSection(AudioTab, Loc.GetString("ui-options-tab-audio"));
+            Sections.AddSection(AccessibilityTab, Loc.GetString("ui-options-tab-accessibility"));
+            Sections.AddSection(AdminOptionsTab, Loc.GetString("ui-options-tab-admin"));
+            Sections.AddSection(NetworkTab, Loc.GetString("ui-options-tab-network"));
+            Sections.AddSection(CustomizationTab, Loc.GetString("ui-options-tab-customization")); // Goob
+            Pages.Orphan();
+            // Starlight-end
 
             UpdateTabs();
         }
@@ -33,10 +37,11 @@ namespace Content.Client.Options.UI
         public void UpdateTabs()
         {
             var isAdmin = _adminManager.IsAdmin(true);
-            Tabs.SetTabVisible(5, isAdmin);
+            Sections.SetSectionVisible(AdminOptionsTab, isAdmin); // Starlight-edit
 
             GraphicsTab.Control.ReloadValues();
             MiscTab.Control.ReloadValues();
+            UITab.Control.ReloadValues();
             AccessibilityTab.Control.ReloadValues();
             AudioTab.Control.ReloadValues();
             AdminOptionsTab.Control.ReloadValues();
