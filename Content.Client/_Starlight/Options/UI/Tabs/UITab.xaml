@@ -1,0 +1,42 @@
+<tabs:UITab
+    xmlns="https://spacestation14.io"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sui="clr-namespace:Content.Client._Starlight.Options.UI"
+    xmlns:tabs="clr-namespace:Content.Client._Starlight.Options.UI.Tabs"
+    xmlns:ui="clr-namespace:Content.Client.Options.UI">
+    <BoxContainer Orientation="Vertical">
+        <ScrollContainer HorizontalExpand="True" VerticalExpand="True" HScrollEnabled="False">
+            <BoxContainer Margin="0 0 8 8" Orientation="Vertical">
+                <Label StyleClasses="LabelKeyText" Text="{Loc 'ui-options-style-theme'}" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel" Margin="0 0 0 12">
+                    <BoxContainer Orientation="Vertical" Margin="10 8" SeparationOverride="10">
+                        <sui:StyleThemePicker Name="ThemePicker" />
+                        <sui:AccentPicker Name="AccentPicker" />
+                    </BoxContainer>
+                </PanelContainer>
+
+                <Label StyleClasses="LabelKeyText" Text="{Loc 'ui-options-ui-style'}" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel" Margin="0 0 0 12">
+                    <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="4">
+                        <ui:OptionDropDown Name="DropDownHudTheme" Title="{Loc 'ui-options-hud-theme'}" />
+                        <ui:OptionDropDown Name="DropDownHudLayout" Title="{Loc 'ui-options-hud-layout'}" />
+                        <ui:OptionDropDown Name="DropDownUIScale" Title="{Loc 'ui-options-scale-label'}" />
+                        <ui:OptionSlider Name="SeparatedChatWidthSlider" Title="{Loc 'ui-options-chat-width'}" />
+                        <ui:OptionSlider Name="ChatWindowOpacitySlider" Title="{Loc 'ui-options-chat-window-opacity'}" />
+                    </BoxContainer>
+                </PanelContainer>
+
+                <Label StyleClasses="LabelKeyText" Text="{Loc 'ui-options-menu-bar-label'}" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel">
+                    <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="4">
+                        <ui:OptionDropDown Name="DropDownMenuBarKeyHints" Title="{Loc 'ui-options-menu-bar-key-hints'}" />
+                        <PanelContainer StyleClasses="LowDivider" Margin="0 4" />
+                        <sui:BarLayoutEditor Name="MenuBarLayoutEditor" />
+                    </BoxContainer>
+                </PanelContainer>
+            </BoxContainer>
+        </ScrollContainer>
+
+        <ui:OptionsTabControlRow Name="Control" Access="Public" />
+    </BoxContainer>
+</tabs:UITab>

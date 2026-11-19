@@ -1,12 +1,10 @@
 <!--
-SPDX-License-Identifier: MIT
+SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <DefaultWindow xmlns="https://spacestation14.io"
             xmlns:cc="clr-namespace:Content.Client.Administration.UI.Bwoink"
-            SetSize="900 500"
-            HeaderClass="windowHeaderAlert"
-            TitleClass="windowTitleAlert"
-            Title="{Loc 'bwoink-user-title'}" >
+            SetSize="920 500"
+            Title="{Loc 'bwoink-admin-title'}" >
     <cc:BwoinkControl Name="Bwoink" Access="Public"/>
 </DefaultWindow>

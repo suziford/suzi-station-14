@@ -16,19 +16,6 @@ namespace Content.Client.Administration.UI.Bwoink
         {
             RobustXamlLoader.Load(this);
 
-            Bwoink.ChannelSelector.OnSelectionChanged += sel =>
-            {
-                if (sel is null)
-                {
-                    Title = Loc.GetString("bwoink-title-none-selected");
-                    return;
-                }
-
-                Title = $"{sel.CharacterName} / {sel.Username} | {Loc.GetString("generic-playtime-title")}: ";
-
-                Title += sel.OverallPlaytime != null ? sel.PlaytimeString : Loc.GetString("generic-unknown-title");
-            };
-
             OnOpen += () =>
             {
                 Bwoink.ChannelSelector.StopFiltering();

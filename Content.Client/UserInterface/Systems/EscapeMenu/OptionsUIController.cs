@@ -32,7 +32,7 @@ public sealed class OptionsUIController : UIController
             return;
         }
 
-        _optionsWindow.Tabs.CurrentTab = tab;
+        _optionsWindow.Sections.CurrentSection = tab; // Starlight-edit
     }
 
     private OptionsMenu _optionsWindow = default!;
