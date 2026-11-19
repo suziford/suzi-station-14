@@ -25,6 +25,14 @@
     slots:
     - ears
     sprite: Clothing/Ears/Headsets/base.rsi
+    equipSound:
+      collection: HeadsetEquip
+  - type: EmitSoundOnPickup
+    sound:
+      collection: HeadsetPickup
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Items/Handling/headset_drop1.ogg
   - type: GuideHelp
     guides:
     - Radio

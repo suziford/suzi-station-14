@@ -6,7 +6,7 @@
     sprite: /Textures/Effects/weather.rsi
     state: ashfall
   sound:
-    path: /Audio/Effects/Weather/snowstorm_weak.ogg
+    path: /Audio/_Starlight/Effects/Weather/ashstorm_weak.ogg
     params:
       loop: true
       volume: -6
@@ -23,7 +23,7 @@
     sprite: /Textures/Effects/weather.rsi
     state: ashfall_light
   sound:
-    path: /Audio/Effects/Weather/snowstorm_weak.ogg
+    path: /Audio/_Starlight/Effects/Weather/ashstorm_weak.ogg
     params:
       loop: true
       volume: -6
@@ -34,7 +34,7 @@
     sprite: /Textures/Effects/weather.rsi
     state: ashfall_heavy
   sound:
-    path: /Audio/Effects/Weather/snowstorm.ogg
+    path: /Audio/_Starlight/Effects/Weather/ashstorm.ogg
     params:
       loop: true
       volume: -6
@@ -45,7 +45,7 @@
     sprite: /Textures/Effects/weather.rsi
     state: fallout
   sound:
-    path: /Audio/Effects/Weather/snowstorm_weak.ogg
+    path: /Audio/_Starlight/Effects/Weather/ashstorm_weak.ogg
     params:
       loop: true
       volume: -6
@@ -85,7 +85,7 @@
     sprite: /Textures/Effects/weather.rsi
     state: sandstorm
   sound:
-    path: /Audio/Effects/Weather/snowstorm_weak.ogg
+    path: /Audio/_Starlight/Effects/Weather/ashstorm_weak.ogg
     params:
       loop: true
       volume: -6
@@ -96,7 +96,7 @@
     sprite: /Textures/Effects/weather.rsi
     state: sandstorm_heavy
   sound:
-    path: /Audio/Effects/Weather/snowstorm.ogg
+    path: /Audio/_Starlight/Effects/Weather/ashstorm.ogg
     params:
       loop: true
       volume: -6

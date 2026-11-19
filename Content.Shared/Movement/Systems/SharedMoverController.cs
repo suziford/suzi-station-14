@@ -434,13 +434,15 @@ public abstract partial class SharedMoverController : VirtualController
             }
 
             if (!weightless && MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
-                TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
+                TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, out var surfaceSound, tileDef: tileDef))
             {
                 var soundModifier = mover.Sprinting ? InputMoverComponent.SprintingSoundModifier : InputMoverComponent.WalkingSoundModifier;
 
                 var audioParams = sound.Params
                     .WithVolume(sound.Params.Volume + soundModifier)
                     .WithVariation(sound.Params.Variation ?? mobMover.FootstepVariation);
+                if (surfaceSound)
+                    audioParams = ApplyStepTimbre(uid, audioParams);
 
                 // If we're a relay target then predict the sound for all relays.
                 if (relaySource != null)
@@ -451,6 +453,8 @@ public abstract partial class SharedMoverController : VirtualController
                 {
                     _audio.PlayPredicted(sound, uid, uid, audioParams);
                 }
+
+                PlayFootstepLayers(uid, relaySource ?? uid, audioParams);
             }
         }
     }
@@ -595,9 +599,11 @@ public abstract partial class SharedMoverController : VirtualController
         MobMoverComponent mobMover,
         TransformComponent xform,
         [NotNullWhen(true)] out SoundSpecifier? sound,
+        out bool surfaceSound,
         ContentTileDefinition? tileDef = null)
     {
         sound = null;
+        surfaceSound = false;
 
         if (!CanSound() || !_tags.HasTag(uid, FootstepSoundTag))
             return false;
@@ -648,6 +654,14 @@ public abstract partial class SharedMoverController : VirtualController
             return sound != null;
         }
 
+        if (_inventory.TryGetSlotEntity(uid, "outerClothing", out var outerClothing) &&
+            FootstepModifierQuery.TryComp(outerClothing, out var outerModifier) &&
+            outerModifier.FootstepSoundCollection != null)
+        {
+            sound = outerModifier.FootstepSoundCollection;
+            return sound != null;
+        }
+
         if (_inventory.TryGetSlotEntity(uid, "shoes", out var shoes) &&
             FootstepModifierQuery.TryComp(shoes, out var modifier))
         {
@@ -655,6 +669,7 @@ public abstract partial class SharedMoverController : VirtualController
             return sound != null;
         }
 
+        surfaceSound = true;
         return TryGetFootstepSound(uid, xform, shoes != null, out sound, tileDef: tileDef);
     }
 
@@ -713,7 +728,7 @@ public abstract partial class SharedMoverController : VirtualController
         if (tileDef == null)
             return false;
 
-        sound = haveShoes ? tileDef.FootstepSounds : tileDef.BarestepSounds;
+        sound = GetTileStepSound(tileDef, haveShoes);
         return sound != null;
     }
 
@@ -819,7 +834,7 @@ public abstract partial class SharedMoverController : VirtualController
         {
             // Play step sound.
             if (MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
-                TryGetSound(false, uid, inputMover, mobMover, targetTransform, out var sound, tileDef: tileDef))
+                TryGetSound(false, uid, inputMover, mobMover, targetTransform, out var sound, out var surfaceSound, tileDef: tileDef))
             {
                 var soundModifier = inputMover.Sprinting ? 3.5f : 1.5f;
                 var volume = sound.Params.Volume + soundModifier;
@@ -827,6 +842,8 @@ public abstract partial class SharedMoverController : VirtualController
                 var audioParams = sound.Params
                     .WithVolume(volume)
                     .WithVariation(sound.Params.Variation ?? mobMover.FootstepVariation);
+                if (surfaceSound)
+                    audioParams = ApplyStepTimbre(uid, audioParams);
 
                 // If we're a relay target then predict the sound for all relays.
                 if (relayTarget != null)
@@ -837,6 +854,8 @@ public abstract partial class SharedMoverController : VirtualController
                 {
                     _audio.PlayPredicted(sound, uid, uid, audioParams);
                 }
+
+                PlayFootstepLayers(uid, relayTarget?.Source ?? uid, audioParams);
             }
 
             // If we're sliding...

@@ -32,3 +32,22 @@ style-theme-cosmic = Cosmic
 style-theme-flesh = Flesh
 style-theme-syndicate = Syndicate
 style-theme-clockwork = Clockwork
+
+## Audio sections and per-category volumes
+
+ui-options-music-label = Music
+ui-options-environment-label = Environment
+ui-options-world-label = World
+ui-options-voices-label = Voices
+ui-options-sound-toggles-label = Sound options
+ui-options-other-label = Other
+ui-options-station-hum-volume = Station hum:
+ui-options-machine-ambience-volume = Machines and devices:
+ui-options-environment-volume = Creaks and hisses:
+ui-options-reverb-volume = Room echo:
+ui-options-effects-volume = Sound effects:
+ui-options-footsteps-volume = Footsteps:
+ui-options-handling-volume = Picking up and equipping:
+ui-options-combat-volume = Weapons and combat:
+ui-options-voice-volume = Voices and emotes:
+ui-options-announcement-volume = Announcements and alerts:

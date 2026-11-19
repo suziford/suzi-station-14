@@ -11,6 +11,12 @@
   - type: ParticleAcceleratorControlBox
   - type: ApcPowerReceiver
     powerLoad: 250
+  - type: AmbientSound
+    enabled: false
+    range: 8
+    volume: -6
+    sound:
+      path: /Audio/_Starlight/Ambience/Objects/pa_hum.ogg
   - type: ExtensionCableReceiver
   - type: Construction
     graph: ParticleAcceleratorControlBox

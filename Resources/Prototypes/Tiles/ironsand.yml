@@ -23,7 +23,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemIronsandConcrete
   heatCapacity: 10000
 
@@ -41,7 +41,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemIronsandConcreteMono
   heatCapacity: 10000
 
@@ -59,7 +59,7 @@
   isSubfloor: false
   deconstructTools: [ Prying ]
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemIronsandConcreteSmooth
   heatCapacity: 10000
 

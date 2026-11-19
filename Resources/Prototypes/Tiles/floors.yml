@@ -10,7 +10,7 @@
 # SPDX-FileCopyrightText: 2020 Paul Ritter <ritter.paul1@googlemail.com>
 # SPDX-FileCopyrightText: 2020 Rohesie <rohesie@gmail.com>
 # SPDX-FileCopyrightText: 2020 Swept <jamesurquhartwebb@gmail.com>
-# SPDX-FileCopyrightText: 2020 Víctor Aguilera Puerto <6766154+Zumorica@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2020 VÃ­ctor Aguilera Puerto <6766154+Zumorica@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2021 AJCM-git <60196617+AJCM-git@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2021 AndrewUnderscore <71723495+UnderscoreX5@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2021 Galactic Chimp <GalacticChimpanzee@gmail.com>
@@ -109,7 +109,7 @@
 # SPDX-FileCopyrightText: 2024 redfire1331 <Redfire1331@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2024 slarticodefast <161409025+slarticodefast@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2024 themias <89101928+themias@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2024 Арт <123451459+JustArt1m@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 ÐÑ€Ñ‚ <123451459+JustArt1m@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
 
 
@@ -901,7 +901,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemConcrete
   tileRipResistance: 300 # Goob
 
@@ -917,7 +917,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemConcreteMono
   tileRipResistance: 300 # Goob
 
@@ -933,7 +933,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemConcreteSmooth
   tileRipResistance: 300 # Goob
 
@@ -949,7 +949,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemGrayConcrete
   tileRipResistance: 300 # Goob
 
@@ -965,7 +965,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemGrayConcreteMono
   tileRipResistance: 300 # Goob
 
@@ -981,7 +981,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemGrayConcreteSmooth
   tileRipResistance: 300 # Goob
 
@@ -997,7 +997,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemOldConcrete
   tileRipResistance: 300 # Goob
 
@@ -1013,7 +1013,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemOldConcreteMono
   tileRipResistance: 300 # Goob
 
@@ -1029,7 +1029,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   itemDrop: FloorTileItemOldConcreteSmooth
   tileRipResistance: 300 # Goob
 
@@ -1268,7 +1268,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepGlass
   itemDrop: SheetGlass1
   tileRipResistance: 150 # Goob
 
@@ -1284,7 +1284,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepGlass
   itemDrop: SheetRGlass1
   tileRipResistance: 175 # Goob
 
@@ -1350,7 +1350,7 @@
   baseTurf: FloorDirt
   isSubfloor: true
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   heatCapacity: 10000
   weather: true
 
@@ -2053,7 +2053,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   friction: 0.8
   itemDrop: FloorTileItemWhiteMarble
 
@@ -2073,7 +2073,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   friction: 0.8
   itemDrop: FloorTileItemDarkMarble
 
@@ -2093,7 +2093,7 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   friction: 0.8
   itemDrop: FloorTileItemPlasmaMarble
 
@@ -2113,6 +2113,6 @@
   - 1.0
   - 1.0
   footstepSounds:
-    collection: FootstepTile
+    collection: FootstepConcrete
   friction: 0.8
   itemDrop: FloorTileItemUraniumMarble

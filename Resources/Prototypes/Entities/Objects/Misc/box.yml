@@ -5,6 +5,12 @@
   parent: BaseStorageItem
   id: BoxBase
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Starlight/Items/Handling/cardboard_pick_up.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Items/Handling/cardboard_drop.ogg
   - type: Sprite
     sprite: Objects/Storage/boxes.rsi
   - type: Item

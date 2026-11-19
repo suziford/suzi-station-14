@@ -102,6 +102,9 @@
   name: cult shoes
   description: A pair of boots worn by the followers of Nar'Sie.
   components:
+  - type: FootstepTimbre
+    pitch: 0.92
+    volume: 1
   - type: Sprite
     sprite: Clothing/Shoes/Specific/cult.rsi
   - type: Clothing
@@ -113,6 +116,9 @@
   name: galoshes
   description: Specialised non-slip rubber boots, designed to reduce janitorial workplace accidents; a tider's treasure.
   components:
+  - type: FootstepTimbre
+    pitch: 1.05
+    volume: -3
   - type: Sprite
     sprite: Clothing/Shoes/Specific/galoshes.rsi
   - type: Clothing
@@ -134,6 +140,9 @@
   name: space ninja shoes
   description: A pair of nano-enhanced boots with built-in magnetic suction cups.
   components:
+  - type: FootstepTimbre
+    pitch: 1.05
+    volume: -9
   - type: Sprite
     sprite: Clothing/Shoes/Specific/spaceninja.rsi
   - type: Clothing
@@ -153,6 +162,9 @@
   name: swat shoes
   description: When you want to turn up the heat.
   components:
+  - type: FootstepTimbre
+    pitch: 0.9
+    volume: 1.5
   - type: Sprite
     sprite: Clothing/Shoes/Specific/swat.rsi
   - type: Clothing

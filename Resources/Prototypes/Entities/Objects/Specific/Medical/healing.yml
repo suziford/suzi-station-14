@@ -5,6 +5,9 @@
   id: BaseHealingItem
   abstract: true
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      collection: MeshPickup
   - type: Sprite
     sprite: Objects/Specific/Medical/medical.rsi
   - type: Item

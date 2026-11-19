@@ -74,6 +74,12 @@
           acts: [ "Destruction" ]
   - type: ApcPowerReceiver
     powerLoad: 3000
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -8
+    range: 3
+    sound:
+      path: /Audio/_Starlight/Ambience/Objects/cryo_bubbling.ogg
   - type: ExtensionCableReceiver
   - type: NodeContainer
     nodes:

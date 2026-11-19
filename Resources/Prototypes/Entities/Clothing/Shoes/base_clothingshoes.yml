@@ -5,29 +5,24 @@
   parent: Clothing
   id: ClothingShoesBase
   components:
+  - type: FootstepTimbre
+    pitch: 1.04
+    volume: -1.5
   # Goobstation edit start
   - type: EmitSoundOnPickup
     sound:
-      path: /Audio/_Goobstation/Items/handling/generic_small_pickup.ogg
-      params:
-        volume: -5
+      path: /Audio/_Starlight/Items/Handling/sneakers_pickup1.ogg
   - type: EmitSoundOnDrop
     sound:
-      path: /Audio/_Goobstation/Items/handling/shoes_drop.ogg
-      params:
-        volume: -5
+      path: /Audio/_Starlight/Items/Handling/sneakers_drop1.ogg
   - type: EmitSoundOnLand
     sound:
-      path: /Audio/_Goobstation/Items/handling/boots_drop.ogg
-      params:
-        volume: -5
+      path: /Audio/_Starlight/Items/Handling/sneakers_drop1.ogg
   - type: Clothing
     slots:
     - FEET
     equipSound:
-      collection: GenericEquip
-      params:
-        volume: -5
+      path: /Audio/_Starlight/Items/Equip/sneakers_equip1.ogg
   # Goobstation edit end
   - type: Sprite
     state: icon
@@ -77,6 +72,9 @@
   parent: [ClothingShoesBase, ClothingSlotBase]
   id: ClothingShoesMilitaryBase
   components:
+  - type: FootstepTimbre
+    pitch: 0.9
+    volume: 1.5
   - type: Matchbox
   - type: ItemSlots
     slots:
@@ -121,6 +119,9 @@
   id: ClothingShoesBaseWinterBoots
   description: Fluffy boots to help survive even the coldest of winters.
   components:
+  - type: FootstepTimbre
+    pitch: 0.94
+    volume: -0.5
   - type: TemperatureProtection
     heatingCoefficient: 1.025
     coolingCoefficient: 0.25

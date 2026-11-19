@@ -160,6 +160,12 @@
     walkModifier: 0.6
     sprintModifier: 0.6
   - type: HeldSpeedModifier
+  - type: FootstepLayer
+    sound:
+      collection: FootstepLayerHeavy
+      params:
+        volume: -4
+        variation: 0.08
   - type: Item
     size: Ginormous
   - type: Armor

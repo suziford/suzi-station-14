@@ -40,3 +40,22 @@ conversation-search-placeholder = Поиск по сообщениям
 conversation-input-placeholder = Сообщение
 conversation-send = Отправить
 overflow-bar-more = Ещё
+
+## Audio sections and per-category volumes
+
+ui-options-music-label = Музыка
+ui-options-environment-label = Окружение
+ui-options-world-label = Мир
+ui-options-voices-label = Голоса
+ui-options-sound-toggles-label = Настройки звука
+ui-options-other-label = Прочее
+ui-options-station-hum-volume = Гул станции:
+ui-options-machine-ambience-volume = Машины и устройства:
+ui-options-environment-volume = Скрипы и шипение:
+ui-options-reverb-volume = Эхо помещений:
+ui-options-effects-volume = Звуковые эффекты:
+ui-options-footsteps-volume = Шаги:
+ui-options-handling-volume = Поднятие и экипировка:
+ui-options-combat-volume = Оружие и бой:
+ui-options-voice-volume = Голоса и эмоции:
+ui-options-announcement-volume = Оповещения и тревоги:

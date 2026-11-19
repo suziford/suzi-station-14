@@ -84,6 +84,15 @@
     addPrefix: true
     blinkingBehaviourId: blinking
     radiatingBehaviourId: radiating
+    turnOnSound:
+      path: /Audio/Machines/machine_switch.ogg
+      params:
+        volume: -4
+    turnOffSound:
+      path: /Audio/Machines/machine_switch.ogg
+      params:
+        volume: -4
+        pitch: 0.85
   - type: LightBehaviour
     behaviours:
       - !type:FadeBehaviour
@@ -251,6 +260,15 @@
     addPrefix: true
     blinkingBehaviourId: blinking
     radiatingBehaviourId: radiating
+    turnOnSound:
+      path: /Audio/Machines/machine_switch.ogg
+      params:
+        volume: -4
+    turnOffSound:
+      path: /Audio/Machines/machine_switch.ogg
+      params:
+        volume: -4
+        pitch: 0.85
   - type: LightBehaviour
     behaviours:
       - !type:FadeBehaviour

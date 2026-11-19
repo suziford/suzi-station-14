@@ -27,7 +27,7 @@ using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Server.Singularity.EntitySystems
 {
-    public sealed class EmitterSystem : SharedEmitterSystem
+    public sealed partial class EmitterSystem : SharedEmitterSystem
     {
         [Dependency] private readonly IRobustRandom _random = default!;
         [Dependency] private readonly IAdminLogManager _adminLogger = default!;
@@ -166,6 +166,7 @@ namespace Content.Server.Singularity.EntitySystems
             }
 
             component.IsPowered = false;
+            UpdateAmbience(uid, component); // Starlight
 
             // Must be set while emitter powered.
             DebugTools.AssertNotNull(component.TimerCancel);
@@ -182,6 +183,7 @@ namespace Content.Server.Singularity.EntitySystems
             }
 
             component.IsPowered = true;
+            UpdateAmbience(uid, component); // Starlight
 
             component.FireShotCounter = 0;
             component.TimerCancel = new CancellationTokenSource();

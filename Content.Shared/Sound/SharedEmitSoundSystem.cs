@@ -2,6 +2,7 @@
 
 using Content.Shared._Trauma.Hands; // Goob
 using Content.Shared.Audio;
+using Content.Shared._Starlight.Sound;
 using Content.Shared.Hands;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
@@ -131,6 +132,9 @@ public abstract class SharedEmitSoundSystem : EntitySystem
 
     private void OnEmitSoundOnPickup(EntityUid uid, EmitSoundOnPickupComponent component, GotEquippedHandEvent args)
     {
+        if (HasComp<SilentPickupComponent>(uid)) // Starlight: quiet pickups, borg modules
+            return;
+
         TryEmitSound(uid, component, args.User);
     }
 

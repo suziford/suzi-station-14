@@ -20,7 +20,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Server.Ame.EntitySystems;
 
-public sealed class AmeControllerSystem : EntitySystem
+public sealed partial class AmeControllerSystem : EntitySystem
 {
     [Dependency] private readonly IAdminLogManager _adminLogger = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
@@ -232,6 +232,7 @@ public sealed class AmeControllerSystem : EntitySystem
             return;
 
         controller.Injecting = value;
+        UpdateAmbience(uid, controller); // Starlight
         UpdateDisplay(uid, controller.Stability, controller);
         if (!value && TryComp<PowerSupplierComponent>(uid, out var powerOut))
             powerOut.MaxSupply = 0;
@@ -325,6 +326,7 @@ public sealed class AmeControllerSystem : EntitySystem
 
     private void OnPowerChanged(EntityUid uid, AmeControllerComponent comp, ref PowerChangedEvent args)
     {
+        UpdateAmbience(uid, comp); // Starlight
         UpdateUi(uid, comp);
     }
 

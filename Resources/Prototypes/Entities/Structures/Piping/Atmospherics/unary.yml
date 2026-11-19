@@ -301,6 +301,12 @@
     - type: GuideHelp
       guides:
       - Thermomachines
+    - type: AmbientOnPowered
+    - type: AmbientSound
+      volume: -9
+      range: 4
+      sound:
+        path: /Audio/_Starlight/Ambience/Objects/fan_loop.ogg
 
 - type: entity
   parent: BaseGasThermoMachine

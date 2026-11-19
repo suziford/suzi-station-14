@@ -5,6 +5,12 @@
   parent: BaseItem
   id: GasTankBase
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Starlight/Items/Handling/gas_tank_pick_up.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Items/Handling/gas_tank_drop.ogg
   - type: Sprite
     sprite: Objects/Tanks/generic.rsi
     state: icon

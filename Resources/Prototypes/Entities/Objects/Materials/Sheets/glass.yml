@@ -7,6 +7,12 @@
   name: glass
   description: A sheet of glass, used often on the station in various applications.
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Starlight/Items/Handling/glass_pick_up.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Items/Handling/glass_drop.ogg
   - type: Sprite
     sprite: Objects/Materials/Sheets/glass.rsi
   - type: Item

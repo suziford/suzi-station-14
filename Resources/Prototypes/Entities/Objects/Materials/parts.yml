@@ -33,6 +33,9 @@
   name: metal rod
   suffix: Full
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Starlight/Items/Handling/iron_rod_pick_up.ogg
   - type: PhysicalComposition
     materialComposition:
       Steel: 50 #Half of a regular steel sheet to reflect the crafting recipe
