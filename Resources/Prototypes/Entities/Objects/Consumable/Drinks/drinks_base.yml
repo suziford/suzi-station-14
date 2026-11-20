@@ -6,6 +6,9 @@
   parent: BaseItem
   id: DrinkBase
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      collection: LiquidSlosh
   - type: Sprite
     state: icon
   - type: MeleeWeapon

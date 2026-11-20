@@ -51,6 +51,12 @@
           True: { visible: false }
           False: { visible: true }
   - type: LitOnPowered
+  - type: AmbientOnPowered
+  - type: AmbientSound
+    volume: -21
+    range: 2
+    sound:
+      path: /Audio/_Starlight/Ambience/Objects/computer_hum.ogg
   - type: PointLight
     radius: 1.5
     energy: 3.0

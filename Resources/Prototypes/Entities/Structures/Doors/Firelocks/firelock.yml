@@ -10,6 +10,7 @@
     - type: Anchorable
       flags:
       - Anchorable
+    - type: ZoneBoundaryExempt # Starlight
     - type: Rotatable
     - type: AtmosAlarmable
       syncWith:

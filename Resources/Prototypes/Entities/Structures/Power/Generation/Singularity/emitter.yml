@@ -48,6 +48,12 @@
       path: /Audio/Weapons/emitter.ogg
   - type: PowerConsumer
     voltage: Medium
+  - type: AmbientSound
+    enabled: false
+    range: 4
+    volume: -8
+    sound:
+      path: /Audio/_Starlight/Effects/Machinery/electric_buzz.ogg
   - type: NodeContainer
     examinable: true
     nodes:

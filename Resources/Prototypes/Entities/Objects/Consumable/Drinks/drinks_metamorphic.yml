@@ -10,6 +10,12 @@
   name: metamorphic glass
   description: A metamorphic glass that automagically turns into a glass appropriate for the drink within. There's a sanded off patent number on the bottom.
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Starlight/Items/Handling/drinkglass_pickup.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Items/Handling/drinkglass_drop.ogg
   - type: Sprite
     sprite: Objects/Consumable/Drinks/glass_clear.rsi
   - type: SolutionContainerManager

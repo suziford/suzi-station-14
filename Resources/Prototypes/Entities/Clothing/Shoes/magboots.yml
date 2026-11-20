@@ -7,6 +7,16 @@
   description: Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle.
   abstract: true
   components:
+  - type: FootstepTimbre
+    pitch: 0.86
+    volume: 1
+  - type: FootstepLayer
+    requireActive: true
+    sound:
+      collection: FootstepLayerMagboots
+      params:
+        volume: -3
+        variation: 0.1
   - type: Sprite
     sprite: Clothing/Shoes/Boots/magboots.rsi
     layers:

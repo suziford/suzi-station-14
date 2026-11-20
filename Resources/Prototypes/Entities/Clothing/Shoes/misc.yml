@@ -17,6 +17,9 @@
   name: leather shoes
   description: Very stylish pair of boots, made from fine leather.
   components:
+  - type: FootstepTimbre
+    pitch: 1.08
+    volume: 0.5
   - type: Sprite
     sprite: Clothing/Shoes/Misc/leather.rsi
   - type: Clothing
@@ -101,6 +104,9 @@
   name: tourist shoes
   description: These cheap sandals don't look very comfortable.
   components:
+  - type: FootstepTimbre
+    pitch: 1.12
+    volume: -4
   - type: Sprite
     sprite: Clothing/Shoes/Misc/tourist.rsi
   - type: Clothing
@@ -112,6 +118,9 @@
   name: yakuza shoes
   description: At last...
   components:
+  - type: FootstepTimbre
+    pitch: 1.1
+    volume: 0.5
   - type: Sprite
     sprite: Clothing/Shoes/Misc/damedaneshoes.rsi
   - type: Clothing
@@ -123,6 +132,9 @@
   name: snakeskin boots
   description: Boots made of once-valuable snakeskin, everyone around you would have been jealous.
   components:
+  - type: FootstepTimbre
+    pitch: 0.96
+    volume: 0.5
   - type: Sprite
     sprite: Clothing/Shoes/Misc/snakeskin.rsi
   - type: Clothing

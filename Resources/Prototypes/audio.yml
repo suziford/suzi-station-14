@@ -43,7 +43,7 @@
     params:
       volume: -12
     collection: AmbienceMedical
-  rules: NearMedical
+  rules: InMedicalZone # Starlight
   priority: 3
 
 - type: ambientMusic
@@ -52,7 +52,7 @@
     params:
       volume: -12
     collection: AmbienceEngineering
-  rules: NearEngineering
+  rules: InEngineeringZone # Starlight
   priority: 3
 
 # General areas
@@ -62,7 +62,7 @@
     params:
       volume: -12
     collection: AmbienceMaintenance
-  rules: NearMaintenance
+  rules: InMaintenanceZone # Starlight
   priority: 2
 
 - type: ambientMusic
@@ -95,6 +95,7 @@
       volume: -12
     collection: AmbienceGeneral
   rules: AlwaysTrue
+  extraDelay: 120 # Starlight
 
 # Sound collections
 - type: soundCollection
@@ -109,11 +110,14 @@
     - /Audio/Ambience/ambitech.ogg
     - /Audio/Ambience/ambitech2.ogg
     - /Audio/Ambience/ambitech3.ogg
+    - /Audio/_Starlight/Ambience/Music/ambieng1.ogg
+    - /Audio/_Starlight/Ambience/Music/ambifailure.ogg
 
 - type: soundCollection
   id: AmbienceGeneral
   files:
     - /Audio/Ambience/ambigen1.ogg
+    - /Audio/_Starlight/Ambience/Music/ambigen2.ogg
     - /Audio/Ambience/ambigen3.ogg
     - /Audio/Ambience/ambigen4.ogg
     - /Audio/Ambience/ambigen5.ogg
@@ -153,6 +157,16 @@
     - /Audio/Voice/Misc/lowHiss4.ogg
     - /Audio/Ambience/maintambience.ogg
     - /Audio/_Goobstation/Ambience/ambihullcreak.ogg # Goobstation
+    - /Audio/_Starlight/Ambience/Music/ambimaint.ogg
+    - /Audio/Ambience/ambimystery.ogg
+    - /Audio/Ambience/ambiodd.ogg
+    - /Audio/_Starlight/Ambience/Music/ambimaint6.ogg
+    - /Audio/_Starlight/Ambience/Music/ambimaint7.ogg
+    - /Audio/_Starlight/Ambience/Music/ambimaint8.ogg
+    - /Audio/_Starlight/Ambience/Music/ambimaint9.ogg
+    - /Audio/_Starlight/Ambience/Music/ambimaint10.ogg
+    - /Audio/_Starlight/Ambience/Music/ambimaint11.ogg
+    - /Audio/_Starlight/Ambience/Music/ambimaint12.ogg
 
 - type: soundCollection
   id: AmbienceMedical
@@ -207,6 +221,11 @@
     - /Audio/Ambience/spookyspace2.ogg
     - /Audio/Ambience/ambispace2.ogg
     - /Audio/Lobby/title2.ogg
+    - /Audio/_Starlight/Ambience/Music/ambispace.ogg
+    - /Audio/_Starlight/Ambience/Music/ambispace3.ogg
+    - /Audio/_Starlight/Ambience/Music/ambispace4.ogg
+    - /Audio/_Starlight/Ambience/Music/ambispace5.ogg
+    - /Audio/_Starlight/Ambience/Music/ambispace6.ogg
 
 - type: soundCollection
   id: AmbienceSpooky

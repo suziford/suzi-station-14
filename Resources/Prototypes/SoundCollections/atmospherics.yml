@@ -11,6 +11,11 @@
   id: SpaceWind
   files:
   - /Audio/Effects/space_wind.ogg
+  - /Audio/_Starlight/Effects/Weather/space_wind_2_1.ogg
+  - /Audio/_Starlight/Effects/Weather/space_wind_2_2.ogg
+  - /Audio/_Starlight/Effects/Weather/space_wind_3_1.ogg
+  - /Audio/_Starlight/Effects/Weather/space_wind_4_1.ogg
+  - /Audio/_Starlight/Effects/Weather/space_wind_4_2.ogg
 
 - type: soundCollection
   id: AtmosHotspot

@@ -2,6 +2,7 @@
 
 using Content.Client.Administration.Managers;
 using Content.Client.Audio;
+using Content.Shared._Starlight.CCVar;
 using Content.Shared.CCVar;
 using Content.Goobstation.Common.CCVar; // Goob Station - Barks, Voice chat
 using Robust.Client.Audio;
@@ -80,6 +81,18 @@ public sealed partial class AudioTab : Control
             _cfg.GetCVar(CCVars.MinMaxAmbientSourcesConfigured),
             _cfg.GetCVar(CCVars.MaxMaxAmbientSourcesConfigured));
 
+        // Starlight-start: Per-category volumes are gain multipliers defaulting to 1, so the slider starts at 50% with room to boost.
+        AddCategorySlider(StarlightCCVars.StationHumVolume, SliderStationHum);
+        AddCategorySlider(StarlightCCVars.EnvironmentVolume, SliderEnvironment);
+        AddCategorySlider(StarlightCCVars.ReverbVolume, SliderReverb);
+        AddCategorySlider(StarlightCCVars.EffectsVolume, SliderEffects);
+        AddCategorySlider(StarlightCCVars.FootstepsVolume, SliderFootsteps);
+        AddCategorySlider(StarlightCCVars.HandlingVolume, SliderHandling);
+        AddCategorySlider(StarlightCCVars.CombatVolume, SliderCombat);
+        AddCategorySlider(StarlightCCVars.VoiceVolume, SliderVoice);
+        AddCategorySlider(StarlightCCVars.AnnouncementVolume, SliderAnnouncement);
+        // Starlight-end
+
         Control.AddOptionCheckBox(GoobCVars.VoiceChatHearSelf, HearSelfCheckBox);
         Control.AddOptionCheckBox(CCVars.LobbyMusicEnabled, LobbyMusicCheckBox);
         Control.AddOptionCheckBox(CCVars.RestartSoundsEnabled, RestartSoundsCheckBox);
@@ -89,6 +102,11 @@ public sealed partial class AudioTab : Control
 
         Control.Initialize();
     }
+
+    private void AddCategorySlider(CVarDef<float> cvar, OptionSlider slider)
+        => Control.AddOptionPercentSlider(cvar, slider, scale: CategoryVolumeMultiplier);
+
+    private const float CategoryVolumeMultiplier = 2f;
 
     protected override void EnteredTree()
     {

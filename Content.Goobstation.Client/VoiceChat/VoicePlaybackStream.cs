@@ -1,6 +1,8 @@
 using System.Numerics;
 using Content.Goobstation.Shared.VoiceChat;
 using Robust.Client.Audio;
+using Robust.Shared.Audio.Effects;
+using Robust.Shared.Maths;
 using Robust.Shared.Audio.Sources;
 
 namespace Content.Goobstation.Client.VoiceChat;
@@ -13,7 +15,8 @@ public readonly record struct VoicePlaybackParams(
     float MaxDistance,
     float Boost,
     bool Global,
-    float Audibility);
+    float Audibility,
+    IAuxiliaryAudio? Auxiliary = null);
 
 public sealed class VoicePlaybackStream : IDisposable
 {
@@ -32,11 +35,6 @@ public sealed class VoicePlaybackStream : IDisposable
     private const int MaxSequenceJump = 50;
 
     private const float ActivityRelease = 0.3f;
-    private const float OpenCutoff = 7000f;
-    private const float MinCutoff = 350f;
-    private const float CutoffFalloff = 1.2f;
-    private const float MuffleSmoothing = 0.35f;
-
     private static readonly TimeSpan ContributorTimeout = TimeSpan.FromMilliseconds(250);
 
     private static readonly TimeSpan StartWait = TimeSpan.FromMilliseconds(60);
@@ -61,9 +59,6 @@ public sealed class VoicePlaybackStream : IDisposable
     private TimeSpan _lastReceived;
     private Chunk? _current;
     private VoicePlaybackParams _params;
-    private float _muffle;
-    private float _lowFirst;
-    private float _lowSecond;
 
     public ushort Speaker;
     public NetEntity Source;
@@ -73,9 +68,11 @@ public sealed class VoicePlaybackStream : IDisposable
     public TimeSpan LastActivity;
     public VoiceLevels Levels;
     public float Activity;
-    public float Muffle;
-    public float Obstruction;
-    public TimeSpan NextObstructionCheck;
+
+    /// <summary>Occlusion currently applied to the sources, smoothed towards <see cref="TargetOcclusion"/>.</summary>
+    public float Occlusion;
+    public float TargetOcclusion;
+    public TimeSpan NextOcclusionCheck;
     public readonly VoiceDecoder Decoder = new();
 
     public IReadOnlyDictionary<ushort, VoiceContributorState> Contributors => _contributors;
@@ -184,7 +181,7 @@ public sealed class VoicePlaybackStream : IDisposable
 
         foreach (var chunk in _playing)
         {
-            Apply(chunk.Source);
+            Apply(chunk);
         }
 
         Schedule(now);
@@ -252,7 +249,7 @@ public sealed class VoicePlaybackStream : IDisposable
 
     private void Play(Chunk chunk, long offsetSamples)
     {
-        Apply(chunk.Source);
+        Apply(chunk);
         chunk.Source.RolloffFactor = 1f;
         chunk.Source.ReferenceDistance = _params.ReferenceDistance;
         chunk.Source.MaxDistance = _params.MaxDistance;
@@ -315,12 +312,25 @@ public sealed class VoicePlaybackStream : IDisposable
         return fromEnd < 0 ? 1f : 1f - (fromEnd + 0.5f) / RampSamples;
     }
 
-    private void Apply(IAudioSource source)
+    private void Apply(Chunk chunk)
     {
+        var source = chunk.Source;
         source.Global = _params.Global;
         source.Position = _params.Position;
         source.Gain = _params.Gain;
-        source.Occlusion = _params.Occlusion;
+
+        // Occlusion and the reverb send cost an OpenAL call each, so only touch them when they changed.
+        if (!MathHelper.CloseTo(chunk.Occlusion, _params.Occlusion, 0.005f))
+        {
+            source.Occlusion = _params.Occlusion;
+            chunk.Occlusion = _params.Occlusion;
+        }
+
+        if (!ReferenceEquals(chunk.Auxiliary, _params.Auxiliary))
+        {
+            source.SetAuxiliary(_params.Auxiliary);
+            chunk.Auxiliary = _params.Auxiliary;
+        }
     }
 
     private void RetireFinished()
@@ -376,7 +386,6 @@ public sealed class VoicePlaybackStream : IDisposable
             Array.Resize(ref _pcm, Math.Max(_pcmLength + FrameSamples, _pcm.Length * 2));
 
         Array.Copy(frame, 0, _pcm, _pcmLength, FrameSamples);
-        ApplyMuffle(_pcmLength);
 
         if (_fadeInNext)
         {
@@ -391,24 +400,6 @@ public sealed class VoicePlaybackStream : IDisposable
         _meter.Analyze(_pcm, _pcmLength, FrameSamples, PcmEnd);
         _pcmLength += FrameSamples;
         _lastFrame = frame;
-    }
-
-    private void ApplyMuffle(int start)
-    {
-        _muffle += (Muffle - _muffle) * MuffleSmoothing;
-        var coefficient = 1f;
-        if (_muffle >= 0.01f)
-        {
-            var cutoff = MathF.Max(MinCutoff, OpenCutoff * MathF.Exp(-_muffle * CutoffFalloff));
-            coefficient = 1f - MathF.Exp(-2f * MathF.PI * cutoff / SampleRate);
-        }
-
-        for (var i = start; i < start + FrameSamples; i++)
-        {
-            _lowFirst += (_pcm[i] - _lowFirst) * coefficient;
-            _lowSecond += (_lowFirst - _lowSecond) * coefficient;
-            _pcm[i] = (short) Math.Clamp(_lowSecond, short.MinValue, short.MaxValue);
-        }
     }
 
     private void Trim()
@@ -441,6 +432,8 @@ public sealed class VoicePlaybackStream : IDisposable
         public readonly long Start = start;
         public readonly long End = end;
         public readonly bool Linkable = linkable;
+        public float Occlusion;
+        public IAuxiliaryAudio? Auxiliary;
         public bool Disposed;
 
         public void Dispose()

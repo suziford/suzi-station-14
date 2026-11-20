@@ -129,6 +129,7 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         comp.Powered = true;
+        UpdateAmbience(uid, comp); // Starlight
         UpdatePowerDraw(uid, comp);
         UpdateFiring(uid, comp);
         UpdatePartVisualStates(uid, comp);
@@ -143,6 +144,7 @@ public sealed partial class ParticleAcceleratorSystem
             return;
 
         comp.Powered = false;
+        UpdateAmbience(uid, comp); // Starlight
         UpdatePowerDraw(uid, comp);
         UpdateFiring(uid, comp);
         UpdatePartVisualStates(uid, comp);

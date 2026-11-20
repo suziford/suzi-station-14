@@ -5,6 +5,12 @@
   parent: [ DrinkBaseMaterialPlastic, DrinkBase ]
   id: SprayBottleBase
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Starlight/Items/Handling/pepper_spray_pick_up.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Items/Handling/pepper_spray_drop.ogg
   - type: Edible
     edible: Drink
     solution: drink

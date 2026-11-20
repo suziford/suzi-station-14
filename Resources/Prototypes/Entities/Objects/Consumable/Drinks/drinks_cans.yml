@@ -6,6 +6,9 @@
   id: DrinkCanBaseFull
   suffix: Full
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      collection: PlasticBottleSlosh
   - type: SolutionContainerManager
     solutions:
       drink:

@@ -15,25 +15,57 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     </BoxContainer>
                 </PanelContainer>
 
-                <Label Text="{Loc 'ui-options-volume-label'}" StyleClasses="LabelKeyText" Margin="0 0 0 4" />
-                <PanelContainer StyleClasses="InsetPanel">
-                    <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="4">
-                        <ui:OptionSlider Name="SliderVolumeMidi" Title="{Loc 'ui-options-midi-volume'}" />
+                <Label Text="{Loc 'ui-options-music-label'}" StyleClasses="LabelKeyText" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel" Margin="0 0 0 12">
+                    <BoxContainer Name="MusicPage" Orientation="Vertical" Margin="10 6" SeparationOverride="4">
                         <ui:OptionSlider Name="SliderVolumeAmbientMusic" Title="{Loc 'ui-options-ambient-music-volume'}" />
-                        <ui:OptionSlider Name="SliderVolumeAmbience" Title="{Loc 'ui-options-ambience-volume'}" />
                         <ui:OptionSlider Name="SliderVolumeLobby" Title="{Loc 'ui-options-lobby-volume'}" />
-                        <ui:OptionSlider Name="SliderVolumeInterface" Title="{Loc 'ui-options-interface-volume'}" />
-                        <ui:OptionSlider Name="SliderVolumeVoiceChat" Title="{Loc 'ui-options-voice-chat-volume'}" />
-                        <ui:OptionSlider Name="SliderVolumeBarks" Title="{Loc 'ui-options-barks-volume'}" /><!-- Goob Station - Barks -->
-                        <ui:OptionSlider Name="SliderMaxAmbienceSounds" Title="{Loc 'ui-options-ambience-max-sounds'}"
-                                         Margin="0 4 0 4" />
-                        <ui:OptionSlider Name="SliderHighlightVolume" Title="{Loc 'ui-options-highlight-volume'}" /> <!-- Goobstation - Highlight chat Ping/Audio! -->
-
-                        <CheckBox Name="HearSelfCheckBox" Text="{Loc 'ui-options-hear-self'}" Margin="0 4 0 0" />
-                        <CheckBox Name="LobbyMusicCheckBox" Text="{Loc 'ui-options-lobby-music'}" />
-                        <CheckBox Name="RestartSoundsCheckBox" Text="{Loc 'ui-options-restart-sounds'}" />
+                        <CheckBox Name="LobbyMusicCheckBox" Text="{Loc 'ui-options-lobby-music'}" Margin="0 8 0 0" />
                         <CheckBox Name="EventMusicCheckBox" Text="{Loc 'ui-options-event-music'}" />
-                        <CheckBox Name="AdminSoundsCheckBox" Text="{Loc 'ui-options-admin-sounds'}" />
+                        <CheckBox Name="RestartSoundsCheckBox" Text="{Loc 'ui-options-restart-sounds'}" />
+                    </BoxContainer>
+                </PanelContainer>
+
+                <Label Text="{Loc 'ui-options-environment-label'}" StyleClasses="LabelKeyText" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel" Margin="0 0 0 12">
+                    <BoxContainer Name="EnvironmentPage" Orientation="Vertical" Margin="10 6" SeparationOverride="4">
+                        <ui:OptionSlider Name="SliderStationHum" Title="{Loc 'ui-options-station-hum-volume'}" />
+                        <ui:OptionSlider Name="SliderVolumeAmbience" Title="{Loc 'ui-options-machine-ambience-volume'}" />
+                        <ui:OptionSlider Name="SliderEnvironment" Title="{Loc 'ui-options-environment-volume'}" />
+                        <ui:OptionSlider Name="SliderReverb" Title="{Loc 'ui-options-reverb-volume'}" />
+                        <ui:OptionSlider Name="SliderMaxAmbienceSounds" Title="{Loc 'ui-options-ambience-max-sounds'}"
+                                         Margin="0 8 0 0" />
+                    </BoxContainer>
+                </PanelContainer>
+
+                <Label Text="{Loc 'ui-options-world-label'}" StyleClasses="LabelKeyText" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel" Margin="0 0 0 12">
+                    <BoxContainer Name="WorldPage" Orientation="Vertical" Margin="10 6" SeparationOverride="4">
+                        <ui:OptionSlider Name="SliderEffects" Title="{Loc 'ui-options-effects-volume'}" />
+                        <ui:OptionSlider Name="SliderFootsteps" Title="{Loc 'ui-options-footsteps-volume'}" />
+                        <ui:OptionSlider Name="SliderHandling" Title="{Loc 'ui-options-handling-volume'}" />
+                        <ui:OptionSlider Name="SliderCombat" Title="{Loc 'ui-options-combat-volume'}" />
+                    </BoxContainer>
+                </PanelContainer>
+
+                <Label Text="{Loc 'ui-options-voices-label'}" StyleClasses="LabelKeyText" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel" Margin="0 0 0 12">
+                    <BoxContainer Name="VoicesPage" Orientation="Vertical" Margin="10 6" SeparationOverride="4">
+                        <ui:OptionSlider Name="SliderVoice" Title="{Loc 'ui-options-voice-volume'}" />
+                        <ui:OptionSlider Name="SliderAnnouncement" Title="{Loc 'ui-options-announcement-volume'}" />
+                        <ui:OptionSlider Name="SliderVolumeBarks" Title="{Loc 'ui-options-barks-volume'}" />
+                        <ui:OptionSlider Name="SliderVolumeVoiceChat" Title="{Loc 'ui-options-voice-chat-volume'}" />
+                        <CheckBox Name="HearSelfCheckBox" Text="{Loc 'ui-options-hear-self'}" Margin="0 4 0 0" />
+                    </BoxContainer>
+                </PanelContainer>
+
+                <Label Text="{Loc 'ui-options-other-label'}" StyleClasses="LabelKeyText" Margin="0 0 0 4" />
+                <PanelContainer StyleClasses="InsetPanel">
+                    <BoxContainer Name="OtherPage" Orientation="Vertical" Margin="10 6" SeparationOverride="4">
+                        <ui:OptionSlider Name="SliderVolumeInterface" Title="{Loc 'ui-options-interface-volume'}" />
+                        <ui:OptionSlider Name="SliderVolumeMidi" Title="{Loc 'ui-options-midi-volume'}" />
+                        <ui:OptionSlider Name="SliderHighlightVolume" Title="{Loc 'ui-options-highlight-volume'}" />
+                        <CheckBox Name="AdminSoundsCheckBox" Text="{Loc 'ui-options-admin-sounds'}" Margin="0 8 0 0" />
                         <CheckBox Name="BwoinkSoundCheckBox" Text="{Loc 'ui-options-bwoink-sound'}" />
                     </BoxContainer>
                 </PanelContainer>

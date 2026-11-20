@@ -6,6 +6,12 @@
   id: CoordinatesDisk
   description: A disk containing the coordinates to a location in space. Necessary for any FTL-traversing vessel to reach their destination. Fits inside shuttle consoles.
   components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Starlight/Items/Handling/disk_pickup.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Starlight/Items/Handling/disk_drop.ogg
   - type: Sprite
     sprite: Objects/Misc/cd.rsi
     state: icon

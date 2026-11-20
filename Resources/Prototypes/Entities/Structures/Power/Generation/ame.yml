@@ -98,6 +98,12 @@
   - type: PowerMonitoringDevice
     group: Generator
     loadNode: input
+  - type: AmbientSound
+    enabled: false
+    range: 6
+    volume: -8
+    sound:
+      path: /Audio/_Starlight/Ambience/Objects/ame_reactor.ogg
     sprite: Structures/Power/Generation/ame.rsi
     state: static
   - type: PowerSupplier

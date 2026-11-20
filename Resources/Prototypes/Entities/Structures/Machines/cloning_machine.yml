@@ -56,6 +56,12 @@
   - type: WiresPanel
   - type: ApcPowerReceiver
     powerLoad: 200 #Receives most of its power from the console
+  - type: AmbientSound
+    enabled: false
+    range: 3
+    volume: -8
+    sound:
+      path: /Audio/_Starlight/Ambience/Objects/scanner_loop.ogg
   - type: Appearance
   - type: GenericVisualizer
     visuals:

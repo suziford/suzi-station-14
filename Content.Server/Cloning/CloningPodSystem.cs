@@ -37,7 +37,7 @@ using Content.Shared.Chemistry.Reagent;
 
 namespace Content.Server.Cloning;
 
-public sealed class CloningPodSystem : EntitySystem
+public sealed partial class CloningPodSystem : EntitySystem
 {
     [Dependency] private readonly DeviceLinkSystem _signalSystem = default!;
     [Dependency] private readonly IPlayerManager _playerManager = null!;
@@ -266,6 +266,7 @@ public sealed class CloningPodSystem : EntitySystem
     {
         cloningPod.Status = status;
         _appearance.SetData(podUid, CloningPodVisuals.Status, cloningPod.Status);
+        UpdateAmbience(podUid, cloningPod); // Starlight
     }
 
     public override void Update(float frameTime)

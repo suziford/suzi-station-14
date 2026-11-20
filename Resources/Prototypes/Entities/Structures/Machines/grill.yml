@@ -18,6 +18,12 @@
       visible: false
   - type: ApcPowerReceiver
     powerLoad: 0 # off by default
+  - type: AmbientSound
+    enabled: false
+    range: 4
+    volume: -6
+    sound:
+      path: /Audio/_Starlight/Ambience/Objects/grill_sizzle.ogg
   - type: EntityHeater
     settingSound:
       path: /Audio/Weapons/click.ogg

@@ -7,6 +7,12 @@
   description: A shield!
   abstract: true
   components:
+    - type: EmitSoundOnPickup
+      sound:
+        path: /Audio/_Starlight/Items/Handling/plastic_shield_pick_up.ogg
+    - type: EmitSoundOnLand
+      sound:
+        path: /Audio/_Starlight/Items/Handling/plastic_shield_drop.ogg
     - type: Sprite
       sprite: Objects/Weapons/Melee/shields.rsi
       state: riot-icon
