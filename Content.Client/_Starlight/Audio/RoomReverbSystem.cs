@@ -67,6 +67,14 @@ public sealed partial class RoomReverbSystem : EntitySystem
     public ReverbSettings? Forced;
 
     public ReverbSettings? Current => _current;
+
+    /// <summary>
+    /// The reverb slot sounds should currently be sent to, or null while the listener is in no reverberant room.
+    /// Voice playback owns raw audio sources that the per-entity pass in <see cref="FrameUpdate"/> never reaches,
+    /// so it reads the slot from here and attaches itself.
+    /// </summary>
+    public IAuxiliaryAudio? CurrentAuxiliary =>
+        _current != null && TryComp(_auxiliary, out AudioAuxiliaryComponent? slot) ? slot.Auxiliary : null;
     public int AttachedSources { get; private set; }
 
     public override void Initialize()

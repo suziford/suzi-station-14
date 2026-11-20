@@ -11,6 +11,7 @@ using Robust.Client.Audio;
 using Robust.Client.Player;
 using Robust.Shared;
 using Robust.Shared.Audio.Components;
+using Robust.Shared.Audio.Sources;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
@@ -166,6 +167,31 @@ public sealed partial class VacuumHearingSystem : EntitySystem
         var source = FindSource(listener.MapId, listener.Position + delta);
         var own = distance < OwnBodyRange || (ignoredEnt is { } parent && _ownParents.Contains(parent));
 
+        return ComputeOcclusion(listener, delta, distance, ignoredEnt, source, own);
+    }
+
+    /// <summary>
+    /// Occlusion for a voice coming from <paramref name="speaker"/>. Voice playback owns raw audio sources that
+    /// never go through <see cref="AudioSystem.GetOcclusionOverride"/>, so it asks for the same value directly.
+    /// The result is in the units of <see cref="IAudioSource.Occlusion"/>.
+    /// </summary>
+    public float GetVoiceOcclusion(MapCoordinates listener, Vector2 delta, float distance, EntityUid speaker)
+    {
+        var position = listener.Position + delta;
+        var open = IsOpenSpace(listener.MapId, position, out var grid);
+        var source = new SourceInfo(new MapCoordinates(position, listener.MapId), open, grid);
+        var own = distance < OwnBodyRange || speaker == _player.LocalEntity;
+
+        return ComputeOcclusion(listener, delta, distance, speaker, source, own);
+    }
+
+    private float ComputeOcclusion(MapCoordinates listener,
+        Vector2 delta,
+        float distance,
+        EntityUid? ignoredEnt,
+        SourceInfo? source,
+        bool own)
+    {
         var vacuum = MathF.Max(ListenerMuffleValue, source is { OpenSpace: true } ? 1f : 0f);
 
         var walls = 0f;

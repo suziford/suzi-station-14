@@ -1,22 +1,19 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
+using Content.Client._Starlight.Audio;
 using Content.Goobstation.Common.CCVar;
 using Content.Goobstation.Shared.VoiceChat;
-using Content.Shared.Construction;
-using Content.Shared.Doors.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Input;
-using Content.Shared.Physics;
 using Content.Shared.Radio;
 using Content.Shared.Verbs;
 using Robust.Client.Audio;
 using Robust.Client.Graphics;
 using Robust.Client.Input;
+using Robust.Shared.Audio.Effects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Input.Binding;
 using Robust.Shared.Map;
-using Robust.Shared.Physics;
-using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -46,7 +43,8 @@ public sealed partial class VoiceChatSystem : EntitySystem
     [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private AudioSystem _audio = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
-    [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private VacuumHearingSystem _hearing = default!;
+    [Dependency] private RoomReverbSystem _reverb = default!;
 
     private static readonly TimeSpan IdleTimeout = TimeSpan.FromSeconds(10);
     private static readonly float[] VolumeLevels = { 0.25f, 0.5f, 1f, 1.5f, 2f };
@@ -64,12 +62,10 @@ public sealed partial class VoiceChatSystem : EntitySystem
     private static readonly Color WhisperColor = Color.FromHex("#A7B6D6");
     private static readonly TimeSpan SelfTimeout = TimeSpan.FromMilliseconds(150);
 
-    private const float ObstructionVisibility = 0.5f;
-    private const float ObstructionGain = 0.3f;
-    private const float AirlockWeight = 0.8f;
-    private const float WallWeight = 1f;
-    private const float WindowWeight = 0.25f;
-    private static readonly TimeSpan ObstructionInterval = TimeSpan.FromMilliseconds(100);
+    // How strongly occlusion (the engine's lowpass units) shows up in the speaker list's audibility.
+    private const float OcclusionVisibility = 0.2f;
+    private const float OcclusionSmoothing = 0.08f;
+    private static readonly TimeSpan OcclusionInterval = TimeSpan.FromMilliseconds(100);
     private const float SelfActivityRelease = 0.3f;
 
     private readonly Dictionary<ushort, VoicePlaybackStream> _streams = new();
@@ -78,7 +74,6 @@ public sealed partial class VoiceChatSystem : EntitySystem
     private readonly Dictionary<ushort, VoiceSpeakerInfo> _speakerInfo = new();
     private readonly HashSet<ushort> _muted = new();
     private readonly Dictionary<ushort, float> _speakerVolume = new();
-    private readonly HashSet<EntityUid> _obstructions = new();
 
     private float _range;
     private float _volume;
@@ -148,10 +143,11 @@ public sealed partial class VoiceChatSystem : EntitySystem
             return;
 
         var listener = _audio.GetListenerCoordinates();
+        var auxiliary = _reverb.CurrentAuxiliary;
 
         foreach (var (id, stream) in _streams)
         {
-            stream.Update(now, GetParams(stream, listener));
+            stream.Update(now, GetParams(stream, listener, auxiliary, frameTime));
             stream.UpdateLevels(frameTime);
             stream.UpdateContributorLevels(now, frameTime);
 
@@ -420,7 +416,10 @@ public sealed partial class VoiceChatSystem : EntitySystem
         stream.AddFrame(message.Sequence, message.Flags, pcm, _timing.RealTime);
     }
 
-    private VoicePlaybackParams GetParams(VoicePlaybackStream stream, MapCoordinates listener)
+    private VoicePlaybackParams GetParams(VoicePlaybackStream stream,
+        MapCoordinates listener,
+        IAuxiliaryAudio? auxiliary,
+        float frameTime)
     {
         var referenceDistance = _audio.GetAudioDistance(1f);
         var maxDistance = _audio.GetAudioDistance(stream.Range);
@@ -432,9 +431,12 @@ public sealed partial class VoiceChatSystem : EntitySystem
         var gain = MathF.Min(volume, 1f);
         var boost = MathF.Max(volume, 1f);
 
-        stream.Muffle = 0f;
+        // Radio and other global routes are not in the room: no occlusion, no reverb, like every global sound.
         if (stream.Global)
+        {
+            stream.Occlusion = stream.TargetOcclusion = 0f;
             return new VoicePlaybackParams(Vector2.Zero, gain, 0f, referenceDistance, maxDistance, boost, true, 1f);
+        }
 
         if (!TryGetEntity(stream.Source, out var uid) || TerminatingOrDeleted(uid.Value))
             return new VoicePlaybackParams(listener.Position, 0f, 0f, referenceDistance, maxDistance, boost, false, 0f);
@@ -449,54 +451,48 @@ public sealed partial class VoiceChatSystem : EntitySystem
         if (audioDistance > maxDistance)
             return new VoicePlaybackParams(coordinates.Position, 0f, 0f, referenceDistance, maxDistance, boost, false, 0f);
 
-        var obstruction = GetObstruction(stream, listener, delta, distance, uid.Value);
-        stream.Muffle = obstruction;
+        UpdateOcclusion(stream, listener, delta, distance, uid.Value, frameTime);
 
-        var audibility = GetAudibility(audioDistance, referenceDistance, maxDistance, obstruction);
-        var obstructedGain = gain * MathF.Exp(-obstruction * ObstructionGain);
-        return new VoicePlaybackParams(coordinates.Position, obstructedGain, 0f, referenceDistance, maxDistance, boost, false, audibility);
+        var audibility = GetAudibility(audioDistance, referenceDistance, maxDistance, stream.Occlusion);
+        return new VoicePlaybackParams(coordinates.Position, gain, stream.Occlusion, referenceDistance, maxDistance, boost, false, audibility, auxiliary);
     }
 
-    private float GetObstruction(VoicePlaybackStream stream, MapCoordinates listener, Vector2 delta, float distance, EntityUid source)
+    /// <summary>
+    /// Voice goes through the same hearing model as every other world sound (walls, doors, vacuum, helmets), so a
+    /// speaker behind a wall or in space sounds the same as any other source in that spot. The raycast is
+    /// throttled and the result eased in so the filter does not click when a door opens.
+    /// </summary>
+    private void UpdateOcclusion(VoicePlaybackStream stream,
+        MapCoordinates listener,
+        Vector2 delta,
+        float distance,
+        EntityUid speaker,
+        float frameTime)
     {
         var now = _timing.RealTime;
-        if (now < stream.NextObstructionCheck)
-            return stream.Obstruction;
-
-        stream.NextObstructionCheck = now + ObstructionInterval;
-        if (distance < 0.1f)
-            return stream.Obstruction = 0f;
-
-        var ray = new CollisionRay(listener.Position, delta / distance, (int) CollisionGroup.HighImpassable);
-        var total = 0f;
-        _obstructions.Clear();
-        foreach (var hit in _physics.IntersectRay(listener.MapId, ray, distance, source, false))
+        var first = stream.NextOcclusionCheck == TimeSpan.Zero;
+        if (now >= stream.NextOcclusionCheck)
         {
-            if (_obstructions.Add(hit.HitEntity))
-                total += GetObstructionWeight(hit.HitEntity);
+            stream.NextOcclusionCheck = now + OcclusionInterval;
+            stream.TargetOcclusion = _hearing.GetVoiceOcclusion(listener, delta, distance, speaker);
         }
 
-        return stream.Obstruction = total;
+        if (first)
+        {
+            stream.Occlusion = stream.TargetOcclusion;
+            return;
+        }
+
+        stream.Occlusion += (stream.TargetOcclusion - stream.Occlusion) * (1f - MathF.Exp(-frameTime / OcclusionSmoothing));
     }
 
-    private float GetObstructionWeight(EntityUid uid)
-    {
-        if (HasComp<SharedCanBuildWindowOnTopComponent>(uid))
-            return 0f;
-
-        if (HasComp<DoorComponent>(uid))
-            return AirlockWeight;
-
-        return TryComp<OccluderComponent>(uid, out var occluder) && occluder.Enabled ? WallWeight : WindowWeight;
-    }
-
-    private static float GetAudibility(float distance, float referenceDistance, float maxDistance, float obstruction)
+    private static float GetAudibility(float distance, float referenceDistance, float maxDistance, float occlusion)
     {
         var attenuation = maxDistance > referenceDistance
             ? 1f - (Math.Clamp(distance, referenceDistance, maxDistance) - referenceDistance) / (maxDistance - referenceDistance)
             : 1f;
 
-        return attenuation * MathF.Exp(-obstruction * ObstructionVisibility);
+        return attenuation * MathF.Exp(-occlusion * OcclusionVisibility);
     }
 
     private void ClearStreams()
