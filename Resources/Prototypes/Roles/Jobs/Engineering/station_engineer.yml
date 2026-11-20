@@ -5,10 +5,10 @@
   name: job-name-engineer
   description: job-description-engineer
   playTimeTracker: JobStationEngineer
-  requirements:
-    - !type:DepartmentTimeRequirement
-      department: Engineering
-      time: 2.5h
+ # requirements:
+ #   - !type:DepartmentTimeRequirement
+ #     department: Engineering
+ #     time: 2.5h
   startingGear: StationEngineerGear
   icon: "JobIconStationEngineer"
   supervisors: job-supervisors-ce

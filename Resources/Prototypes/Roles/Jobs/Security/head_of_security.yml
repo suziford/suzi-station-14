@@ -6,18 +6,18 @@
   description: job-description-hos
   playTimeTracker: JobHeadOfSecurity
   requirements:
-    - !type:RoleTimeRequirement
-      role: JobWarden
-      time: 5h # Goobstation
-    - !type:RoleTimeRequirement
-      role: JobDetective
-      time: 1h # knowing how to use the tools is important
-    - !type:RoleTimeRequirement
-      role: JobSecurityOfficer
-      time: 10h # Goobstation
+  #  - !type:RoleTimeRequirement
+  #    role: JobWarden
+  #    time: 5h # Goobstation
+  #  - !type:RoleTimeRequirement
+  #    role: JobDetective
+  #    time: 1h # knowing how to use the tools is important
+  #  - !type:RoleTimeRequirement
+  #    role: JobSecurityOfficer
+  #    time: 10h # Goobstation
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 10h
+      time: 3h
     - !type:SpeciesRequirement # Goob - None Felinid
       inverted: true
       species:
