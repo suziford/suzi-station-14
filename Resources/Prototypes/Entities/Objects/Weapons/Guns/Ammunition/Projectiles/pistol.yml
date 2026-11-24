@@ -1,46 +1,46 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: entity
-  parent: BaseBullet
+  parent: BulletTrace
   id: BulletPistol
   categories: [ HideSpawnMenu ]
   name: bullet (.35 auto)
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 16
 
 - type: entity
-  parent: BaseBulletPractice
+  parent: BulletTrace
   id: BulletPistolPractice
   categories: [ HideSpawnMenu ]
   name: bullet (.35 auto practice)
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Blunt: 2
 
 - type: entity
-  parent: BaseBulletIncendiary
+  parent: BulletTraceIncendiary
   id: BulletPistolIncendiary
   categories: [ HideSpawnMenu ]
   name: bullet (.35 auto incendiary)
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 2 # Goobstation
         Heat: 2 # Goobstation
 
 - type: entity
-  parent: BaseBulletUranium
+  parent: BulletTrace
   id: BulletPistolUranium
   categories: [ HideSpawnMenu ]
   name: bullet (.35 auto uranium)
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Radiation: 6

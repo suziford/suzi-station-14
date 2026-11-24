@@ -4,13 +4,20 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Animations;
 using Content.Client.Clickable;
+using Content.Client.DisplacementMap;
 using Content.Client.Items;
 using Content.Client.Weapons.Ranged.Components;
 using Content.Shared._Goobstation.Heretic.Components;
+using Content.Shared._Starlight.CCVar;
+using Content.Shared._Starlight.Combat.Ranged.Pierce;
+using Content.Shared._Starlight.Effects;
+using Content.Shared._Starlight.Utility;
+using Content.Shared._Starlight.Weapons.Hitscan.Events;
 using Content.Shared.Camera;
 using Content.Shared.CCVar;
 using Content.Shared.CombatMode;
 using Content.Shared.Damage;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Physics;
 using Content.Shared.Weapons.Hitscan.Components;
@@ -35,6 +42,8 @@ using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using SharedGunSystem = Content.Shared.Weapons.Ranged.Systems.SharedGunSystem;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
@@ -58,9 +67,33 @@ public sealed partial class GunSystem : SharedGunSystem
     [Dependency] private readonly SpriteTreeSystem _spriteTree = default!;
     [Dependency] private readonly ClickableSystem _clickable = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
+    // Starlight
+    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly DisplacementMapSystem _displacement = default!;
+    [Dependency] private readonly IRobustRandom _random = default!;
 
     public static readonly EntProtoId HitscanProto = "HitscanEffect";
+    public const string ImpactProto = "ImpactEffect";
+    public const string BulletHoleProto = "BulletHoleEffect";
+    public const string SparksProto = "ImpactSparksEffect";
+    private DisplacementEffect _displacementEffect = null!;
+    private static readonly ProtoId<DisplacementEffect> _displacementEffectId = "ImpactDisplacement";
+    private bool _tracesEnabled = true;
+    private bool _holesEnabled = true;
+    private bool _sparksEnabled = true;
     private GunTargetEntityComparer _comparer = default!;
+
+    public override void Shutdown()
+    {
+        base.Shutdown();
+        _cfg.UnsubValueChanged(StarlightCCVars.TracesEnabled, OnTracesEnabledChanged);
+        _cfg.UnsubValueChanged(StarlightCCVars.HolesEnabled, OnHolesEnabledChanged);
+        _cfg.UnsubValueChanged(StarlightCCVars.SparksEnabled, OnSparksEnabledChanged);
+    }
+
+    private void OnTracesEnabledChanged(bool tracesEnabled) => _tracesEnabled = tracesEnabled;
+    private void OnHolesEnabledChanged(bool holesEnabled) => _holesEnabled = holesEnabled;
+    private void OnSparksEnabledChanged(bool sparksEnabled) => _sparksEnabled = sparksEnabled;
 
     public bool SpreadOverlay
     {
@@ -102,6 +135,13 @@ public sealed partial class GunSystem : SharedGunSystem
         // Plays animated effects on the client.
         SubscribeAllEvent<HitscanEvent>(OnHitscan); // Trauma - all instead of network, predicted shots raise it locally
 
+        // Starlight
+        _cfg.OnValueChanged(StarlightCCVars.TracesEnabled, OnTracesEnabledChanged, true);
+        _cfg.OnValueChanged(StarlightCCVars.HolesEnabled, OnHolesEnabledChanged, true);
+        _cfg.OnValueChanged(StarlightCCVars.SparksEnabled, OnSparksEnabledChanged, true);
+        InitializePrediction();
+        _displacementEffect = _proto.Index(_displacementEffectId);
+
         InitializeMagazineVisuals();
         InitializeSpentAmmo();
 
@@ -118,56 +158,256 @@ public sealed partial class GunSystem : SharedGunSystem
 
     private void OnHitscan(HitscanEvent ev)
     {
-        // ALL I WANT IS AN ANIMATED EFFECT
+        var delay = 0f;
+        var first = TryConsumePredictedHitscan(ev);
 
-        // TODO EFFECTS
-        // This is very jank
-        // because the effect consists of three unrelatd entities, the hitscan beam can be split appart.
-        // E.g., if a grid rotates while part of the beam is parented to the grid, and part of it is parented to the map.
-        // Ideally, there should only be one entity, with one sprite that has multiple layers
-        // Or at the very least, have the other entities parented to the same entity to make sure they stick together.
-        foreach (var a in ev.Sprites)
+        if (first == 0 && IsOwnPredictedShot(ev))
+            PlayPredictedImpactSound(ev);
+        for (var i = first; i < ev.Traces.Count; i++)
+            delay = FireEffect(ev, delay, ev.Traces[i]);
+    }
+
+    private float FireEffect(HitscanEvent visuals, float delay, HitscanTrace trace, PredictedHitscanEffects? predicted = null)
+    {
+        _recordingEffects = predicted;
+        var length = visuals.Speed > 0f ? trace.Distance / (visuals.Speed / 5000f) : 0f;
+        if (trace.MuzzleCoordinates is { } muzzleCoordinates)
         {
-            if (a.Sprite is not SpriteSpecifier.Rsi rsi)
-                continue;
+            if (visuals.MuzzleFlash is { } muzzle && (_tracesEnabled || visuals.Bullet is null))
+                RenderFlash(muzzleCoordinates, trace.Angle, muzzle, 1f, false, false, length, delay);
 
-            var coords = GetCoordinates(a.coordinates);
+            if (visuals.Bullet is { } bullet)
+                RenderBullet(muzzleCoordinates, trace.Angle, bullet, trace.Distance - 1.5f, length, delay);
+        }
+        if (visuals.TravelFlash is { } travel && trace.TravelCoordinates is { } travelCoordinates && (_tracesEnabled || visuals.Bullet is null))
+            RenderFlash(travelCoordinates, trace.Angle, travel, trace.Distance - 1.5f, true, false, length, delay);
+        delay += length;
+        _recordingEffects = null;
 
-            if (!TryComp(coords.EntityId, out TransformComponent? relativeXform))
-                continue;
-
-            var ent = Spawn(HitscanProto, coords);
-            var sprite = Comp<SpriteComponent>(ent);
-
-            var xform = Transform(ent);
-            var targetWorldRot = a.angle + _xform.GetWorldRotation(relativeXform);
-            var delta = targetWorldRot - _xform.GetWorldRotation(xform);
-            _xform.SetLocalRotationNoLerp(ent, xform.LocalRotation + delta, xform);
-
-            sprite[EffectLayers.Unshaded].AutoAnimated = false;
-            _sprite.LayerSetSprite((ent, sprite), EffectLayers.Unshaded, rsi);
-            _sprite.LayerSetRsiState((ent, sprite), EffectLayers.Unshaded, rsi.RsiState);
-            _sprite.SetScale((ent, sprite), new Vector2(a.Distance, 1f));
-            sprite[EffectLayers.Unshaded].Visible = true;
-
-            var anim = new Animation()
+        if ((visuals.ImpactFlash is not null || trace.ImpactedEnt is not null) && (_tracesEnabled || visuals.Bullet is null))
+            Timer.Spawn((int) delay, () =>
             {
-                Length = TimeSpan.FromSeconds(0.48f),
-                AnimationTracks =
+                if (predicted?.Cancelled == true)
+                    return;
+
+                _recordingEffects = predicted;
+                if (visuals.ImpactFlash is { } impact)
+                    RenderFlash(trace.ImpactCoordinates, trace.Angle, impact, 1f, false, true, length, delay);
+
+                if (trace.ImpactedEnt is { } netEnt && GetEntity(netEnt) is EntityUid ent && Exists(ent))
+                    RenderDisplacements(GetCoordinates(trace.ImpactCoordinates), trace.Angle, ent);
+                _recordingEffects = null;
+            });
+        return delay;
+    }
+
+    private void RenderDisplacements(EntityCoordinates coords, Angle angle, EntityUid target)
+    {
+        if (!TryComp<SpriteComponent>(target, out var sprite)
+            || !TryComp(coords.EntityId, out TransformComponent? relativeXform))
+            return;
+
+        if (!sprite.AllLayers.TryFirstOrDefault(x => (x.ActualRsi ?? x.Rsi) != null && x.RsiState != null, out var layer))
+            return;
+
+        if (layer.PixelSize.X != 32 || layer.PixelSize.Y != 32)
+            return;
+
+        var ent = Spawn(ImpactProto, coords);
+        RecordPredictedEffect(ent);
+        var spriteComp = Comp<SpriteComponent>(ent);
+
+        var xform = Transform(ent);
+        var targetWorldRot = angle + _xform.GetWorldRotation(relativeXform);
+        var delta = targetWorldRot - _xform.GetWorldRotation(xform);
+        _xform.SetLocalRotationNoLerp(ent, xform.LocalRotation + delta, xform);
+
+        _sprite.LayerSetRsi((ent, spriteComp), "unshaded", (layer!.ActualRsi ?? layer.Rsi)!);
+        _sprite.LayerSetRsiState((ent, spriteComp), "unshaded", layer.RsiState);
+        spriteComp["unshaded"].Visible = true;
+        _displacement.TryAddDisplacement(_displacementEffect.Displacement, (ent, spriteComp), 0, "unshaded", out _);
+
+        if (_holesEnabled && !HasComp<MobStateComponent>(target))
+        {
+            var radians = MathF.PI / 180f * (float) angle.Degrees;
+            var holeCoords = coords.Offset(new Vector2(MathF.Cos(radians), MathF.Sin(radians)) * _random.NextFloat(0f, 0.5f));
+            RecordPredictedEffect(Spawn(BulletHoleProto, holeCoords));
+        }
+
+        if (_sparksEnabled
+            && TryComp<PierceableComponent>(target, out var pierceable)
+            && pierceable.Level >= PierceLevel.Metal)
+            RecordPredictedEffect(Spawn(SparksProto, coords));
+    }
+
+    private void RenderBullet(NetCoordinates coordinates, Angle angle, ExtendedSpriteSpecifier sprite, float distance, float length, float delay)
+    {
+        if (sprite.Sprite is not SpriteSpecifier.Rsi rsi)
+            return;
+
+        var coords = GetCoordinates(coordinates);
+
+        if (!TryComp(coords.EntityId, out TransformComponent? relativeXform))
+            return;
+
+        var ent = Spawn(HitscanProto, coords);
+        RecordPredictedEffect(ent);
+        var spriteComp = Comp<SpriteComponent>(ent);
+        var spriteEnt = (ent, spriteComp);
+
+        var xform = Transform(ent);
+        var targetWorldRot = angle + _xform.GetWorldRotation(relativeXform);
+        var delta = targetWorldRot - _xform.GetWorldRotation(xform);
+        _xform.SetLocalRotationNoLerp(ent, xform.LocalRotation + delta, xform);
+
+        spriteComp[EffectLayers.Unshaded].AutoAnimated = false;
+        spriteComp[EffectLayers.Unshaded].Visible = true;
+        _sprite.LayerSetSprite(spriteEnt, EffectLayers.Unshaded, rsi);
+        _sprite.LayerSetRsiState(spriteEnt, EffectLayers.Unshaded, rsi.RsiState);
+        _sprite.SetOffset(spriteEnt, new Vector2(1f, 0f));
+        _sprite.SetRotation(spriteEnt, 1.5708f);
+        _sprite.SetColor(spriteEnt, sprite.SpriteColor);
+        _sprite.SetVisible(spriteEnt, delay == 0);
+
+        var time = delay + length;
+
+        var despawn = Comp<TimedDespawnComponent>(ent);
+        despawn.Lifetime = (time / 1000) + 1000;
+
+        if (delay != 0)
+            Timer.Spawn((int) delay, () =>
+            {
+                if (TryComp(ent, out spriteComp))
+                    _sprite.SetVisible((ent, spriteComp), true);
+            });
+
+        Timer.Spawn((int) time, () =>
+        {
+            if (TryComp(ent, out spriteComp))
+                _sprite.SetVisible((ent, spriteComp), false);
+        });
+
+        var anim = new Animation()
+        {
+            Length = TimeSpan.FromMilliseconds(time),
+            AnimationTracks =
+            {
+                new AnimationTrackComponentProperty()
                 {
-                    new AnimationTrackSpriteFlick()
+                    ComponentType = typeof(SpriteComponent),
+                    Property = nameof(SpriteComponent.Offset),
+                    KeyFrames =
                     {
-                        LayerKey = EffectLayers.Unshaded,
-                        KeyFrames =
-                        {
-                            new AnimationTrackSpriteFlick.KeyFrame(rsi.RsiState, 0f),
-                        }
+                        new AnimationTrackProperty.KeyFrame(new Vector2(1f, 0f), delay / 1000),
+                        new AnimationTrackProperty.KeyFrame(new Vector2(distance + 1.0f, 0f), time / 1000),
+                        new AnimationTrackProperty.KeyFrame(new Vector2(distance + 1.0f, 0f), (time + 1000) / 1000),
+                    },
+                    InterpolationMode = AnimationInterpolationMode.Linear
+                }
+            }
+        };
+
+        _animPlayer.Play(ent, anim, "hitscan-effect");
+    }
+
+    private void RenderFlash(NetCoordinates coordinates, Angle angle, SpriteSpecifier sprite, float distance, bool travel, bool end, float length, float delay)
+    {
+        if (end) length = 0;
+        var time = delay + length + 100;
+
+        if (sprite is not SpriteSpecifier.Rsi rsi)
+            return;
+
+        var coords = GetCoordinates(coordinates);
+
+        if (!TryComp(coords.EntityId, out TransformComponent? relativeXform))
+            return;
+
+        var ent = Spawn(HitscanProto, coords);
+        RecordPredictedEffect(ent);
+        var spriteEnt = (ent, Comp<SpriteComponent>(ent));
+
+        var xform = Transform(ent);
+        var targetWorldRot = angle + _xform.GetWorldRotation(relativeXform);
+        var delta = targetWorldRot - _xform.GetWorldRotation(xform);
+        _xform.SetLocalRotationNoLerp(ent, xform.LocalRotation + delta, xform);
+
+        if (_sprite.TryGetLayer(spriteEnt, EffectLayers.Unshaded, out var unshaded, false))
+            _sprite.LayerSetAutoAnimated(unshaded, false);
+
+        _sprite.LayerSetSprite(spriteEnt, EffectLayers.Unshaded, rsi);
+        _sprite.LayerSetRsiState(spriteEnt, EffectLayers.Unshaded, rsi.RsiState);
+        if (travel)
+        {
+            _sprite.SetScale(spriteEnt, new Vector2(0.05f, 0.5f));
+            _sprite.SetOffset(spriteEnt, new Vector2(distance * -0.5f, 0f));
+        }
+        else
+            _sprite.SetScale(spriteEnt, new Vector2(1f, 0.5f));
+
+        _sprite.LayerSetVisible(spriteEnt, EffectLayers.Unshaded, true);
+
+        var despawn = Comp<TimedDespawnComponent>(ent);
+        despawn.Lifetime = (time / 1000) + 1000;
+
+        if (delay != 0)
+            Timer.Spawn((int) delay, () =>
+            {
+                if (!Deleted(ent))
+                    _sprite.SetVisible(spriteEnt, true);
+            });
+
+        Timer.Spawn((int) time, () =>
+        {
+            if (!Deleted(ent))
+                _sprite.SetVisible(spriteEnt, false);
+        });
+
+        var anim = new Animation()
+        {
+            Length = TimeSpan.FromMilliseconds(time),
+            AnimationTracks =
+            {
+                new AnimationTrackSpriteFlick()
+                {
+                    LayerKey = EffectLayers.Unshaded,
+                    KeyFrames =
+                    {
+                        new AnimationTrackSpriteFlick.KeyFrame(rsi.RsiState, (time - 100) / 1000),
                     }
                 }
-            };
+            }
+        };
 
-            _animPlayer.Play(ent, anim, "hitscan-effect");
+        if (travel)
+        {
+            anim.AnimationTracks.Add(new AnimationTrackComponentProperty()
+            {
+                ComponentType = typeof(SpriteComponent),
+                Property = nameof(SpriteComponent.Scale),
+                KeyFrames =
+                {
+                    new AnimationTrackProperty.KeyFrame(new Vector2(0.05f, 0.5f), delay / 1000),
+                    new AnimationTrackProperty.KeyFrame(new Vector2(distance, 0.5f), (time - 100) / 1000),
+                    new AnimationTrackProperty.KeyFrame(new Vector2(distance, 0.5f), time / 1000),
+                },
+                InterpolationMode = AnimationInterpolationMode.Cubic
+            });
+            anim.AnimationTracks.Add(new AnimationTrackComponentProperty()
+            {
+                ComponentType = typeof(SpriteComponent),
+                Property = nameof(SpriteComponent.Offset),
+                KeyFrames =
+                {
+                    new AnimationTrackProperty.KeyFrame(new Vector2(distance * -0.5f, 0f), delay / 1000),
+                    new AnimationTrackProperty.KeyFrame(new Vector2(0, 0f), (time - 100) / 1000),
+                    new AnimationTrackProperty.KeyFrame(new Vector2(0, 0f), time / 1000),
+                },
+                InterpolationMode = AnimationInterpolationMode.Cubic
+            });
         }
+
+        _animPlayer.Play(ent, anim, "hitscan-effect");
     }
 
     public override void Update(float frameTime)
@@ -234,6 +474,7 @@ public sealed partial class GunSystem : SharedGunSystem
             Coordinates = GetNetCoordinates(coordinates),
             Gun = GetNetEntity(gun),
             Continuous = _cfg.GetCVar(CCVars.ControlHoldToAttackRanged),
+            Tick = Timing.CurTick, // Starlight
         });
     }
 
@@ -245,6 +486,12 @@ public sealed partial class GunSystem : SharedGunSystem
             return;
 
         _recoil.KickCamera(user.Value, recoil.Normalized() * 0.13f * recoilScalar); // Goob
+    }
+
+    protected override void OnClientPredictHitscan(Entity<GunComponent> gun, EntityUid shot, int seed, EntityCoordinates fromCoordinates, Vector2 direction, float pointer, EntityUid? user)
+    {
+        var fromMap = TransformSystem.ToMapCoordinates(fromCoordinates);
+        PredictHitscan(gun, shot, seed, fromMap, direction, pointer, user);
     }
 
     protected override void Popup(string message, EntityUid? uid, EntityUid? user)

@@ -1,9 +1,9 @@
 - type: entity
   id: BulletLowCaliber
   name: bullet (5x23mm)
-  parent: BaseBullet
+  parent: BulletTrace
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 11

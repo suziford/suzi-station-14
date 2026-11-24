@@ -55,6 +55,15 @@
       entity_storage: !type:Container
       paper_label: !type:ContainerSlot
   - type: Weldable
+  - type: FlippableStructure
+    delay: 3
+    unflipDelay: 4
+    coverChance: 0.55
+    disablePower: false
+    flippedBounds: "-0.48,-0.3,0.48,0.3"
+    crushDamage:
+      types:
+        Blunt: 12
   - type: PlaceableSurface
     placeCentered: true
     isPlaceable: false
@@ -277,6 +286,15 @@
     containers:
       entity_storage: !type:Container
   - type: Weldable
+  - type: FlippableStructure
+    delay: 3
+    unflipDelay: 4
+    coverChance: 0.55
+    disablePower: false
+    flippedBounds: "-0.48,-0.3,0.48,0.3"
+    crushDamage:
+      types:
+        Blunt: 12
   - type: PlaceableSurface
     placeCentered: true
     isPlaceable: false

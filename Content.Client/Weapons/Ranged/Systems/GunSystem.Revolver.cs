@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Client._Starlight.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Containers;
 
@@ -29,12 +30,12 @@ public sealed partial class GunSystem
 
     private void OnRevolverAmmoUpdate(Entity<RevolverAmmoProviderComponent> ent, ref UpdateAmmoCounterEvent args)
     {
-        if (args.Control is not RevolverStatusControl control) return;
+        if (args.Control is not RevolverCylinderStatusControl control) return;
         control.Update(ent.Comp.CurrentIndex, ent.Comp.Chambers);
     }
 
     private void OnRevolverCounter(Entity<RevolverAmmoProviderComponent> ent, ref AmmoCounterControlEvent args)
     {
-        args.Control = new RevolverStatusControl();
+        args.Control = new RevolverCylinderStatusControl();
     }
 }

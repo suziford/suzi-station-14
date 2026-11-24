@@ -4,7 +4,7 @@ using Content.Shared.Weapons.Hitscan.Events;
 
 namespace Content.Shared.Weapons.Hitscan.Systems;
 
-public sealed class HitscanBasicDamageSystem : EntitySystem
+public sealed partial class HitscanBasicDamageSystem : EntitySystem
 {
     [Dependency] private readonly DamageableSystem _damage = default!;
 
@@ -20,15 +20,23 @@ public sealed class HitscanBasicDamageSystem : EntitySystem
         if (args.Data.HitEntity == null)
             return;
 
-        var dmg = ent.Comp.Damage * _damage.UniversalHitscanDamageModifier;
+        var dmg = ent.Comp.Damage * _damage.UniversalHitscanDamageModifier * GetFalloffMultiplier(ent, args.Data);
+        if (ent.Comp.ArmorPenetration != 0f)
+            dmg.ArmorPenetration = ent.Comp.ArmorPenetration;
 
-        if(!_damage.TryChangeDamage(args.Data.HitEntity.Value, dmg, out var damageDealt, origin: args.Data.Gun))
+        if (!_damage.TryChangeDamage(
+                args.Data.HitEntity.Value,
+                dmg,
+                out var damageDealt,
+                ignoreResistances: ent.Comp.IgnoreResistances,
+                origin: args.Data.Gun))
             return;
 
         var damageEvent = new HitscanDamageDealtEvent
         {
             Target = args.Data.HitEntity.Value,
             DamageDealt = damageDealt,
+            Data = args.Data,
         };
 
         RaiseLocalEvent(ent, ref damageEvent);

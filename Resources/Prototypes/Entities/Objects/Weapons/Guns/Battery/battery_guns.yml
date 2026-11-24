@@ -5,6 +5,16 @@
   parent: BaseItem
   abstract: true
   components:
+  - type: FiringPinHolder
+    supportedPins: [ Laser, GunUpgrade ]
+  - type: ContainerFill
+    containers:
+      firing_pin:
+      - FiringPinLaser
+  - type: Temperature
+  - type: GunHeat
+    heatPerShot: 2000
+  - type: UseBeforeWield
   - type: Sprite
   - type: Item
     size: Huge

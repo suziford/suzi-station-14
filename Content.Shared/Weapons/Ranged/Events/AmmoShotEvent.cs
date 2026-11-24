@@ -8,4 +8,5 @@ namespace Content.Shared.Weapons.Ranged.Events;
 public sealed class AmmoShotEvent : EntityEventArgs
 {
     public List<EntityUid> FiredProjectiles = default!;
+    public EntityUid? Shooter; // Starlight
 }

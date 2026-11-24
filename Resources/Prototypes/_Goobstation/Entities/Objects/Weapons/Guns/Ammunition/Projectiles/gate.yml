@@ -2,23 +2,19 @@
 
 - type: entity
   categories: [ HideSpawnMenu ]
-  parent: BaseBullet
+  parent: BulletTrace
   id: BulletG8Demolishing
   name: bullet (G8 demolishing "The Spear of Ares")
   components:
-  - type: Sprite
-    layers:
-    - state: piercing
-      shader: unshaded
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 30
         Structural: 1000
     ignoreResistances: true
     penetrationThreshold: 1337
-  - type: StaminaDamageOnCollide
-    damage: 150
+  - type: HitscanStaminaDamage
+    staminaDamage: 150
 
 - type: entity
   categories: [ HideSpawnMenu ]

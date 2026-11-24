@@ -7,6 +7,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
+using Robust.Shared.Timing;
 
 namespace Content.Shared.Weapons.Ranged.Components;
 
@@ -38,6 +39,12 @@ public sealed partial class GunComponent : Component
     [DataField]
     public SoundSpecifier? SoundMode = new SoundPathSpecifier("/Audio/Weapons/Guns/Misc/selector.ogg");
 
+    /// <summary>
+    /// How much the ammo spreads when shot, in degrees. Does nothing if count is 0.
+    /// </summary>
+    [DataField]
+    public Angle Spread = Angle.FromDegrees(5);
+
     #endregion
 
     #region Recoil
@@ -62,8 +69,12 @@ public sealed partial class GunComponent : Component
     /// Last time the gun fired.
     /// Used for recoil purposes.
     /// </summary>
-    [DataField]
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer))] // Starlight
+    [AutoNetworkedField, AutoPausedField] // Starlight
     public TimeSpan LastFire = TimeSpan.Zero;
+
+    [DataField]
+    public bool Pump = false;
 
     /// <summary>
     /// What the current spread is for shooting. This gets changed every time the gun fires.
@@ -273,6 +284,20 @@ public sealed partial class GunComponent : Component
     /// </summary>
     [DataField]
     public Vector2 DefaultDirection = new Vector2(0, -1);
+
+    #region Starlight
+    [DataField]
+    public float SprintSpreadModifier = 1f;
+
+    [DataField]
+    public float WalkSpreadModifier = 0.5f;
+
+    [DataField]
+    public Angle MovingMinAngle = Angle.Zero;
+
+    [ViewVariables, AutoNetworkedField]
+    public GameTick BurstTick;
+    #endregion
 
     /// <summary>
     /// Goobstation

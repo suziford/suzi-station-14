@@ -1,0 +1,26 @@
+using Content.Shared.Emp;
+using Content.Shared.Weapons.Hitscan.Events;
+using Content.Shared._Starlight.Weapons.Hitscan.Components;
+
+namespace Content.Shared._Starlight.Weapons.Hitscan.Systems;
+
+public sealed partial class HitscanEmpEffectSystem : EntitySystem
+{
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedEmpSystem _emp = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        SubscribeLocalEvent<HitscanEmpEffectComponent, HitscanRaycastFiredEvent>(OnHitscanHit);
+    }
+
+    private void OnHitscanHit(Entity<HitscanEmpEffectComponent> hitscan, ref HitscanRaycastFiredEvent args)
+    {
+        if (args.Data.HitEntity == null)
+            return;
+
+        _emp.EmpPulse(_transform.GetMapCoordinates(args.Data.HitEntity.Value), hitscan.Comp.Emp.Range, hitscan.Comp.Emp.EnergyConsumption, hitscan.Comp.Emp.DisableDuration);
+    }
+}

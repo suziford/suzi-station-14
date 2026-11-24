@@ -87,6 +87,12 @@ public sealed partial class NPCCombatSystem
             return;
         }
 
+        if (_hidingWitness.IsHiddenFrom(uid, component.Target))
+        {
+            component.Status = CombatStatus.TargetUnreachable;
+            return;
+        }
+
         if (TryComp<NPCSteeringComponent>(uid, out var steering) &&
             steering.Status == SteeringStatus.NoPath)
         {

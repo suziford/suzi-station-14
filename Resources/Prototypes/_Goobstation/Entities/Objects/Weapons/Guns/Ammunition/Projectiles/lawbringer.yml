@@ -81,7 +81,7 @@
 - type: entity
   id: BulletDetain
   name: detain
-  parent: BaseBullet
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Fixtures
@@ -93,32 +93,18 @@
         hard: false
         mask:
         - Opaque
-  - type: Reflective
-    reflective:
-    - Energy
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
-    layers:
-    - state: omnilaser
-      shader: unshaded
-  - type: Projectile
-    impactEffect: BulletImpactEffectDisabler
+  - type: HitscanBasicDamage
     damage:
       types:
         Heat: 0
-  - type: StaminaDamageOnCollide
-    damage: 25
+  - type: HitscanStaminaDamage
+    staminaDamage: 25
     overtime: 15
 
 - type: entity
   id: BulletExecute
   name: execute
-  parent: BaseBullet
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Fixtures
@@ -130,21 +116,7 @@
         hard: false
         mask:
         - Opaque
-  - type: Reflective
-    reflective:
-    - Energy
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
-  - type: Sprite
-    sprite: _Goobstation/Objects/Weapons/Guns/Projectiles/selectable_ammo.rsi
-    layers:
-    - state: omnilaser-green
-      shader: unshaded
-  - type: Projectile
-    impactEffect: BulletImpactEffectOrangeDisabler
+  - type: HitscanBasicDamage
     damage:
       types:
         Heat: 17
@@ -153,7 +125,7 @@
 - type: entity
   id: BulletHotshot
   name: hotshot
-  parent: BaseBullet
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
   - type: Fixtures
@@ -165,27 +137,11 @@
         hard: false
         mask:
         - Opaque
-  - type: Reflective
-    reflective:
-    - Energy
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
-    layers:
-    - state: heavylaser
-      shader: unshaded
-  - type: Projectile
-    impactEffect: BulletImpactEffectOrangeDisabler
+  - type: HitscanBasicDamage
     damage:
       types:
         Blunt: 2
         Heat: 2
-  - type: IgniteOnCollide
-    fireStacks: 2
 
 - type: entity
   id: BulletSleepshot
@@ -240,24 +196,10 @@
 - type: entity
   id: BulletBigshot
   name: bigshot
-  parent: BaseBullet
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   components:
-  - type: Reflective
-    reflective:
-    - Energy
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
-    layers:
-    - state: omnilaser_greyscale
-      shader: unshaded
-  - type: Projectile
-    impactEffect: BulletImpactEffectKinetic
+  - type: HitscanBasicDamage
     damage:
       types:
         Blunt: 2

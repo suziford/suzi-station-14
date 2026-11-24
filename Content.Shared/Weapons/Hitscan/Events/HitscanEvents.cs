@@ -1,5 +1,6 @@
 using System.Numerics;
 using Content.Shared.Damage;
+using Content.Shared._Starlight.Weapons.Hitscan.Events;
 using Robust.Shared.Map;
 
 namespace Content.Shared.Weapons.Hitscan.Events;
@@ -35,13 +36,38 @@ public record struct HitscanTraceEvent
     /// Target that was being aimed at (Not necessarily hit).
     /// </summary>
     public EntityUid? Target;
+
+    #region Starlight
+    /// <summary>
+    /// Location the hitscan was fired to.
+    /// </summary>
+    public EntityCoordinates ToCoordinates;
+
+    /// <summary>
+    /// The effect list being used
+    /// </summary>
+    public List<HitscanTrace>? OutputTrace;
+
+    /// <summary>
+    /// Seed for the random rolls of this leg. Set on shots the shooter's client predicts,
+    /// so both sides roll the same cover and crowd checks. Null falls back to the regular random.
+    /// </summary>
+    public int? PredictionSeed;
+    #endregion
 }
 
 /// <summary>
-/// All data known data for when a hitscan is actually fired.
+/// All data known for when a hitscan is actually fired.
 /// </summary>
 public record struct HitscanRaycastFiredData
 {
+    // Starlight-start
+    /// <summary>
+    /// Seed for the random rolls of this leg.
+    /// </summary>
+    public int? PredictionSeed;
+    // Starlight-end
+
     /// <summary>
     /// Direction that the ray was fired towards.
     /// </summary>
@@ -61,6 +87,18 @@ public record struct HitscanRaycastFiredData
     /// Player who shot the gun, if null the gun was fired by itself.
     /// </summary>
     public EntityUid? Shooter;
+
+    // Starlight start
+    /// <summary>
+    /// The location of the impact, if null the raycast didn't hit anyone.
+    /// </summary>
+    public Vector2? HitPosition;
+
+    /// <summary>
+    /// A list of all hitscans in the trace, used for final rendering.
+    /// </summary>
+    public List<HitscanTrace> OutputTrace;
+    // Starlight end
 }
 
 /// <summary>
@@ -107,4 +145,11 @@ public record struct HitscanDamageDealtEvent
     /// The amount of damage that the target was dealt.
     /// </summary>
     public DamageSpecifier DamageDealt;
+
+    // Starlight begin
+    /// <summary>
+    /// Data for the hitscan that was fired.
+    /// </summary>
+    public HitscanRaycastFiredData Data;
+    // Starlight end
 }

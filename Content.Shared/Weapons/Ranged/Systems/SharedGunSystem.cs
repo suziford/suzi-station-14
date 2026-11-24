@@ -25,6 +25,9 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Weapons.Melee.Events;
+using Content.Shared._Starlight.Utility;
+using Content.Shared._Starlight.Weapons.Hitscan.Events;
+using Content.Shared.Movement.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Whitelist;
@@ -178,13 +181,25 @@ public abstract partial class SharedGunSystem : EntitySystem
         if (gun.Owner != GetEntity(msg.Gun))
             return;
 
-        gun.Comp.ShootCoordinates = GetCoordinates(msg.Coordinates);
-        // Goob edit start
-        var potentialTarget = GetEntity(msg.Target);
-        if (gun.Comp.Target == null || !gun.Comp.BurstActivated || !gun.Comp.LockOnTargetBurst)
-            gun.Comp.Target = potentialTarget;
-        // Goob edit end
-        AttemptShoot(user.Value, gun);
+        if (!gun.Comp.BurstActivated)
+        {
+            gun.Comp.ShootCoordinates = GetCoordinates(msg.Coordinates);
+            // Goob edit start
+            var potentialTarget = GetEntity(msg.Target);
+            if (gun.Comp.Target == null || !gun.Comp.BurstActivated || !gun.Comp.LockOnTargetBurst)
+                gun.Comp.Target = potentialTarget;
+            // Goob edit end
+        }
+
+        _shotTick = GetBurstShotTick(gun.Comp) ?? GetRequestTick(msg.Tick);
+        try
+        {
+            AttemptShoot(user.Value, gun);
+        }
+        finally
+        {
+            _shotTick = null;
+        }
         if (msg.Continuous)
             gun.Comp.ShotCounter = 0;
     }
@@ -455,21 +470,26 @@ public abstract partial class SharedGunSystem : EntitySystem
         }
 
         // Handle burstfire
-        if (gun.Comp.SelectedMode == SelectiveFire.Burst)
+        var startingBurst = gun.Comp.SelectedMode == SelectiveFire.Burst && !gun.Comp.BurstActivated;
+        if (startingBurst)
         {
-            gun.Comp.BurstActivated = true;
+            gun.Comp.BurstTick = ShotTick;
+            DirtyField(gun.AsNullable(), nameof(GunComponent.BurstTick));
+            SetBurst(gun, true, gun.Comp.BurstShotsCount);
         }
         if (gun.Comp.BurstActivated)
         {
-            gun.Comp.BurstShotsCount += shots;
-            if (gun.Comp.BurstShotsCount >= gun.Comp.ShotsPerBurstModified)
+            var burstShots = gun.Comp.BurstShotsCount + shots;
+            if (burstShots >= gun.Comp.ShotsPerBurstModified)
             {
                 gun.Comp.NextFire += TimeSpan.FromSeconds(gun.Comp.BurstCooldownModified); // Goobstation edit
                 if (!gun.Comp.LockOnTargetBurst || gun.Comp.ShootCoordinates == null) // Goobstation
                     gun.Comp.Target = null;
-                gun.Comp.NextFire += TimeSpan.FromSeconds(gun.Comp.BurstCooldown);
-                gun.Comp.BurstActivated = false;
-                gun.Comp.BurstShotsCount = 0;
+                SetBurst(gun, false, 0);
+            }
+            else
+            {
+                SetBurst(gun, true, burstShots);
             }
         }
 
@@ -788,13 +808,128 @@ public abstract partial class SharedGunSystem : EntitySystem
 
     // Trauma - PlayImpactSound made concrete in SharedGunSystem.Trauma.cs
 
+    #region Starlight
+
+    public Angle PeekSpread(Entity<GunComponent?> gun, TimeSpan? curTime = null)
+    {
+        if (!Resolve(gun, ref gun.Comp, false))
+            return Angle.Zero;
+
+        var theta = GetNextShotTheta(gun.Comp, curTime ?? Timing.CurTime);
+        return new Angle(ApplyMovementSpread((gun, gun.Comp), theta));
+    }
+
+    public Angle UpdateCurrentAngle(Entity<GunComponent> gun, TimeSpan? curTime = null)
+    {
+        var shot = GetNextShotTheta(gun.Comp, curTime ?? Timing.CurTime);
+
+        var minTheta = Math.Min(gun.Comp.MinAngleModified.Theta, gun.Comp.MaxAngleModified.Theta);
+        var maxTheta = Math.Max(gun.Comp.MinAngleModified.Theta, gun.Comp.MaxAngleModified.Theta);
+
+        gun.Comp.CurrentAngle = new Angle(MathHelper.Clamp(
+            shot + gun.Comp.AngleIncreaseModified.Theta,
+            minTheta,
+            maxTheta));
+        DirtyField(gun.AsNullable(), nameof(GunComponent.CurrentAngle));
+
+        return new Angle(shot);
+    }
+
+    private static double GetNextShotTheta(GunComponent comp, TimeSpan curTime)
+    {
+        var timeSinceLastFire = Math.Max(0, (curTime - comp.LastFire).TotalSeconds);
+        var minTheta = Math.Min(comp.MinAngleModified.Theta, comp.MaxAngleModified.Theta);
+        var maxTheta = Math.Max(comp.MinAngleModified.Theta, comp.MaxAngleModified.Theta);
+        return MathHelper.Clamp(
+            comp.CurrentAngle.Theta - (comp.AngleDecayModified.Theta * timeSinceLastFire),
+            minTheta,
+            maxTheta);
+    }
+
+    public float GetMovementSpreadModifier(Entity<GunComponent> gun)
+    {
+        var holder = Transform(gun).ParentUid;
+        if (!TryComp<InputMoverComponent>(holder, out var mover) || !mover.CanMove || !mover.HasDirectionalMovement)
+            return 1f;
+
+        return 1f + (mover.Sprinting ? gun.Comp.SprintSpreadModifier : gun.Comp.WalkSpreadModifier);
+    }
+
+    private double ApplyMovementSpread(Entity<GunComponent> gun, double theta)
+    {
+        var modifier = GetMovementSpreadModifier(gun);
+        if (modifier <= 1f)
+            return theta;
+
+        return Math.Max(theta, gun.Comp.MovingMinAngle.Theta) * modifier;
+    }
+
+    public Angle GetRecoilAngle(Entity<GunComponent> gun, Angle direction, TimeSpan? curTime = null)
+    {
+        var spread = ApplyMovementSpread(gun, UpdateCurrentAngle(gun, curTime).Theta);
+#pragma warning disable CS0618
+        var random = GetShotRandom(gun, RecoilSalt).NextFloat(-0.5f, 0.5f);
+#pragma warning restore CS0618
+        return new Angle(direction.Theta + (spread * random));
+    }
+
+    private void SetBurst(Entity<GunComponent> gun, bool activated, int shotsCount)
+    {
+        if (gun.Comp.BurstActivated != activated)
+        {
+            gun.Comp.BurstActivated = activated;
+            DirtyField(gun.AsNullable(), nameof(GunComponent.BurstActivated));
+        }
+
+        if (gun.Comp.BurstShotsCount != shotsCount)
+        {
+            gun.Comp.BurstShotsCount = shotsCount;
+            DirtyField(gun.AsNullable(), nameof(GunComponent.BurstShotsCount));
+        }
+    }
+
+    public bool ContinueBurst(EntityUid user, Entity<GunComponent> gun)
+    {
+        if (gun.Comp.ShootCoordinates == null)
+        {
+            SetBurst(gun, false, 0);
+            return false;
+        }
+
+        var previous = _shotTick;
+        _shotTick = GetBurstShotTick(gun.Comp) ?? previous;
+        try
+        {
+            return AttemptShoot(user, gun);
+        }
+        finally
+        {
+            _shotTick = previous;
+        }
+    }
+
+    public bool IsChamberClosed(EntityUid gunEntity)
+        => Appearance.TryGetData(gunEntity, AmmoVisuals.BoltClosed, out bool boltClosed) && boltClosed;
+
+    #endregion
+
     /// <summary>
     /// Used for animated effects on the client.
     /// </summary>
     [Serializable, NetSerializable]
     public sealed class HitscanEvent : EntityEventArgs
     {
-        public List<(NetCoordinates coordinates, Angle angle, SpriteSpecifier Sprite, float Distance)> Sprites = [];
+        public required List<HitscanTrace> Traces;
+
+        public SpriteSpecifier? MuzzleFlash;
+        public SpriteSpecifier? TravelFlash;
+        public SpriteSpecifier? ImpactFlash;
+        public ExtendedSpriteSpecifier? Bullet;
+        public required float Speed;
+        public NetEntity? Shooter;
+        public NetEntity? Gun;
+        public int? PredictionSeed;
+        public string? Prototype;
     }
 
     /// <summary>

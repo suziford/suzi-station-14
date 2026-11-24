@@ -69,6 +69,8 @@
   id: BaseWall
   components:
   - type: Occluder # Breaks on diagonal walls
+  - type: Pierceable
+    level: Metal
 
 - type: entity
   abstract: true
@@ -76,6 +78,8 @@
   id: WallDiagonalBase
   suffix: Diagonal
   components:
+  - type: Pierceable
+    level: Metal
   - type: Tag
     tags:
     - Wall
@@ -639,6 +643,8 @@
   id: WallReinforced
   name: reinforced wall
   components:
+  - type: Pierceable
+    level: HardenedMetal
   - type: Sprite
     sprite: Structures/Walls/solid.rsi
   - type: Icon
@@ -1394,6 +1400,8 @@
   name: wood wall
   description: The traditional greytide defense.
   components:
+  - type: Pierceable
+    level: Wood
   - type: Sprite
     sprite: Structures/Walls/wood.rsi
   - type: Icon

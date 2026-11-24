@@ -7,6 +7,23 @@
   description: A rooty tooty point and shooty.
   abstract: true
   components:
+  - type: FiringPinHolder
+    supportedPins: [ Pistol, GunUpgrade ]
+  - type: ContainerFill
+    containers:
+      firing_pin:
+      - FiringPinPistol
+  - type: Temperature
+  - type: GunHeat
+    heatPerShot: 750
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: GunWieldBonus
+    minAngle: 0
+    maxAngle: 0
+    minAngleDivider: 2
+    maxAngleDivider: 2
+    angleIncreaseDivider: 1.5
   - type: Sprite
     layers:
       - state: base

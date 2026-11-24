@@ -288,6 +288,9 @@ namespace Content.Client.IconSmoothing
                 case IconSmoothingMode.Corners:
                     CalculateNewSpriteCorners(gridEntity, smooth, spriteEnt, xform, smoothQuery);
                     break;
+                case IconSmoothingMode.Linear:
+                    CalculateNewSpriteLinear(gridEntity, smooth, spriteEnt, xform, smoothQuery);
+                    break;
                 case IconSmoothingMode.CardinalFlags:
                     CalculateNewSpriteCardinal(gridEntity, smooth, spriteEnt, xform, smoothQuery);
                     break;
