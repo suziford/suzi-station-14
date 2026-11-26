@@ -57,14 +57,6 @@
       - !type:EjectVendorItems
   - type: Repairable
     doAfterDelay: 8
-  - type: FlippableStructure
-    delay: 4
-    unflipDelay: 6
-    coverChance: 0.6
-    flippedBounds: "-0.45,-0.32,0.45,0.32"
-    crushDamage:
-      types:
-        Blunt: 15
   - type: ESForcedFacingUi # Goob
   - type: ActivatableUI
     key: enum.VendingMachineUiKey.Key
@@ -172,14 +164,6 @@
           collection: MetalGlassBreak
   - type: Repairable
     doAfterDelay: 8
-  - type: FlippableStructure
-    delay: 4
-    unflipDelay: 6
-    coverChance: 0.6
-    flippedBounds: "-0.45,-0.32,0.45,0.32"
-    crushDamage:
-      types:
-        Blunt: 15
   - type: ESForcedFacingUi # Goob
   - type: ActivatableUI
     key: enum.VendingMachineUiKey.Key

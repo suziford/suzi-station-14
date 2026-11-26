@@ -11,9 +11,6 @@ gun-heat-crystal-cracked = The lens crystal of {THE($gun)} cracks from the heat!
 
 gunwieldbonus-component-examine-shield-brace = Bracing it against a shield held in the other hand gives part of the two-handed accuracy bonus.
 
-trait-unlucky-name = Unlucky
-trait-unlucky-desc = Vending machines have it out for you. Bump into one and it might just fall on top of you.
-
 ui-options-traces-enabled = Display bullet traces
 ui-options-holes-enabled = Display bullet holes
 ui-options-sparks-enabled = Display impact sparks

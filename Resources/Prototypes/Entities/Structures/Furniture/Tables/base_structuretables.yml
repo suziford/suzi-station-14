@@ -45,9 +45,6 @@
     - ForceFixRotations
   - type: RequireProjectileTarget # Goobstation - Crawling
     ignoreThrow: true
-  - type: FlippableStructure
-    flippedPrototype: TableFlipped
-    disablePower: false
 
 
 - type: entity

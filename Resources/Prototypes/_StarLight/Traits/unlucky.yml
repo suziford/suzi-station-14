@@ -1,8 +1,0 @@
-- type: trait
-  id: Unlucky
-  name: trait-unlucky-name
-  description: trait-unlucky-desc
-  category: Quirks
-  cost: 0
-  components:
-  - type: Unlucky

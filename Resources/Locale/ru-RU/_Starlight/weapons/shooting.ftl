@@ -20,15 +20,6 @@ firing-pin-weapon-failure = Оружие издаёт сухой щелчок.
 firing-pin-no-pin = [color=yellow]Это оружие не сможет выстрелить — отсутствует ударный механизм.[/color]
 firing-pin-shotcounter-shots-fired = Из этого оружия сделано [color=yellow]{$shots}[/color] выстрелов.
 
-structure-flip-verb-flip = Перевернуть
-structure-flip-verb-unflip = Поставить обратно
-structure-flip-topple-victim = { CAPITALIZE(THE($structure)) } падает прямо на вас!
-structure-flip-topple-others = { CAPITALIZE(THE($structure)) } падает прямо на { THE($victim) }!
-structure-flip-storage-tipped = { CAPITALIZE(THE($structure)) } лежит на боку. Сначала поставьте его обратно.
-
-trait-unlucky-name = Невезучий
-trait-unlucky-desc = Торговые автоматы вас недолюбливают. Если врезаться в один из них, он может свалиться прямо на вас.
-
 overlay-ranged-sight-default = По умолчанию
 overlay-ranged-sight-dot-outer-double-arrows = [Точка, внешние] Двойные стрелки
 overlay-ranged-sight-basic = Базовый

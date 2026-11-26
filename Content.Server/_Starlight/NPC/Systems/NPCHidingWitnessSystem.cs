@@ -1,7 +1,6 @@
 using System.Linq;
 using Content.Server._Starlight.NPC.Components;
 using Content.Server.NPC.HTN;
-using Content.Shared._Starlight.Structures.Flip;
 using Content.Shared._Starlight.Weapons.Cover.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Systems;
@@ -43,7 +42,6 @@ public sealed partial class NPCHidingWitnessSystem : EntitySystem
 
     private bool IsSeeThrough(EntityUid uid)
         => HasComp<EntityStorageComponent>(uid)
-        || HasComp<FlippableStructureComponent>(uid)
         || HasComp<ProjectileCoverComponent>(uid);
 
     [SubscribeLocalEvent]
