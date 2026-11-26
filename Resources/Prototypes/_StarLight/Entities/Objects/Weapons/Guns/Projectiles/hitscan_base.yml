@@ -1,0 +1,57 @@
+- type: entity
+  id: BulletTrace
+  parent: BasicHitscan
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanBasicVisuals
+    muzzleFlash:
+      sprite: _Starlight/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: muzzle
+    travelFlash:
+      sprite: _Starlight/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: trace
+    impactFlash:
+      sprite: _Starlight/Objects/Weapons/Guns/Projectiles/projectiles.rsi
+      state: impact
+    bullet:
+      sprite:
+        sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+        state: bullet
+  - type: HitscanBasicRaycast
+    collisionMask: BulletImpassable
+  - type: HitscanReflect
+    reflectiveType: NonEnergy
+    maxReflections: 6
+  - type: HitscanPierce
+    chance: 0.35
+    pierceLevel: Flesh
+    deviation: 0.05
+  - type: HitscanRicochet
+    chance: 0.15
+  - type: HitscanCreateBloodSpray
+
+- type: entity
+  id: BulletTraceShotgun
+  parent: BulletTrace
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanDamageFalloff
+    fullDamageDistance: 3
+    minDamageDistance: 10
+    minMultiplier: 0.35
+  - type: HitscanPierce
+    chance: 0.1
+    pierceLevel: Flesh
+    deviation: 0.1
+
+- type: entity
+  id: BulletTraceIncendiary
+  parent: BulletTrace
+  abstract: true
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: HitscanIgniteEffect
+    fireStacks: 2
+    temperature: 700

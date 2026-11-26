@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: entity
-  parent: BaseBullet
+  parent: BulletTrace
   id: BulletHeavyRifle
   categories: [ HideSpawnMenu ]
   name: bullet (.10 rifle)
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 19
@@ -17,7 +17,7 @@
   categories: [ HideSpawnMenu ]
   name: minigun bullet (.10 rifle)
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 5

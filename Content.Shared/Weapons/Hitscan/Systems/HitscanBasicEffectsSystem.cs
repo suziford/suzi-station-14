@@ -38,6 +38,6 @@ public sealed class HitscanBasicEffectsSystem : EntitySystem
         }
 
         _gun.PlayImpactSound(args.Target, args.DamageDealt, ent.Comp.Sound, ent.Comp.ForceSound,
-            CompOrNull<PredictedShooterComponent>(ent)?.Shooter); // Trauma - predicted
+            CompOrNull<PredictedShooterComponent>(ent)?.Shooter ?? args.Data.Shooter); // Trauma + Starlight - predicted
     }
 }

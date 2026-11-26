@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Numerics;
+using Content.Client.CombatMode;
 using Content.Client.Hands.Systems;
 using Content.Goobstation.Common.MartialArts;
 using Content.Shared._Goobstation.Weapons.AmmoSelector;
+using Content.Shared._Starlight.CCVar;
 using Content.Shared.CCVar;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -68,7 +70,22 @@ namespace Content.Client.Hands
 
         protected override bool BeforeDraw(in OverlayDrawArgs args)
         {
+            if (!ShouldShowForMode())
+                return false;
+
             return base.BeforeDraw(in args); // Goob
+        }
+
+        private bool ShouldShowForMode()
+        {
+            var mode = (HeldItemShowMode) _cfg.GetCVar(StarlightCCVars.HeldItemShowMode);
+            if (mode == HeldItemShowMode.Always)
+                return true;
+            if (mode == HeldItemShowMode.Never)
+                return false;
+
+            var inCombat = _entMan.System<CombatModeSystem>().IsInCombatMode();
+            return mode == HeldItemShowMode.CombatModeOnly ? inCombat : !inCombat;
         }
 
         protected override void Draw(in OverlayDrawArgs args)

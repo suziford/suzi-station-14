@@ -51,6 +51,10 @@ public abstract partial class SharedGunSystem
     {
     }
 
+    protected virtual void OnClientPredictHitscan(Entity<GunComponent> gun, EntityUid shot, int seed, EntityCoordinates fromCoordinates, Vector2 direction, float pointer, EntityUid? user)
+    {
+    }
+
     /// <summary>
     /// Trauma - moved server version here and predicted it
     /// </summary>
@@ -81,7 +85,20 @@ public abstract partial class SharedGunSystem
             return;
 
         var mapAngle = mapDirection.ToAngle();
-        var angle = GetRecoilAngle(Timing.CurTime, gun, mapDirection.ToAngle(), user); // Goobstation user
+        var angle = GetRecoilAngle(gun, mapAngle, Timing.CurTime);
+        gun.Comp.LastFire = gun.Comp.NextFire;
+        DirtyField(gun.AsNullable(), nameof(GunComponent.LastFire));
+
+        // Goobstation recoil modifiers
+        var angleEv = new GetRecoilModifiersEvent()
+        {
+            Gun = gun,
+            User = user ?? gun
+        };
+        if (user != null)
+            RaiseLocalEvent(user.Value, angleEv);
+        RaiseLocalEvent(gun, angleEv);
+        angle = new Angle(mapAngle.Theta + (angle.Theta - mapAngle.Theta) * angleEv.Modifier);
 
         userImpulse = true;
 
@@ -104,9 +121,11 @@ public abstract partial class SharedGunSystem
         // DebugTools.Assert(direction != Vector2.Zero);
         var shotProjectiles = new List<EntityUid>(ammo.Count);
         var shotRandom = GetRandom(gun, user);
+        var ammoIndex = -1;
 
         foreach (var (ent, shootable) in ammo)
         {
+            ammoIndex++;
             // pneumatic cannon doesn't shoot bullets it just throws them, ignore ammo handling
             if (throwItems && ent != null)
             {
@@ -145,7 +164,7 @@ public abstract partial class SharedGunSystem
                     }
 
                     // Something like ballistic might want to leave it in the container still
-                    if (!cartridge.DeleteOnSpawn && !Containers.IsEntityInContainer(ent!.Value))
+                    if (!cartridge.DeleteOnSpawn && !Containers.IsEntityInContainer(ent!.Value) && !gun.Comp.Pump)
                         EjectCartridge(shotRandom, user, ent.Value, angle);
 
                     Dirty(ent!.Value, cartridge);
@@ -166,13 +185,18 @@ public abstract partial class SharedGunSystem
                     if (user != null)
                         SetPredictedShooter(ent.Value, user.Value);
 
+                    var seed = GetHitscanSeed(gun, ammoIndex, 0);
+                    OnClientPredictHitscan(gun, ent.Value, seed, fromCoordinates, mapDirection.Normalized(), mapDirection.Length(), user);
+
                     var hitscanEv = new HitscanTraceEvent
                     {
                         FromCoordinates = fromCoordinates,
+                        ToCoordinates = toCoordinates,
                         ShotDirection = mapDirection.Normalized(),
                         Gun = gun,
                         Shooter = user,
                         Target = gun.Comp.Target,
+                        PredictionSeed = seed,
                     };
                     RaiseLocalEvent(ent.Value, ref hitscanEv);
 
@@ -189,6 +213,7 @@ public abstract partial class SharedGunSystem
         RaiseLocalEvent(gun, new AmmoShotEvent()
         {
             FiredProjectiles = shotProjectiles,
+            Shooter = user,
         });
 
         // Goobstation start
@@ -204,14 +229,10 @@ public abstract partial class SharedGunSystem
         {
             if (TryComp<ProjectileSpreadComponent>(ammoEnt, out var ammoSpreadComp))
             {
-                var spreadEvent = new GunGetAmmoSpreadEvent(ammoSpreadComp.Spread);
-                RaiseLocalEvent(gun, ref spreadEvent);
-
-                var angles = LinearSpread(mapAngle - spreadEvent.Spread / 2,
-                    mapAngle + spreadEvent.Spread / 2, ammoSpreadComp.Count);
+                var angles = GetPelletAngles(gun, ammoSpreadComp, mapDirection.ToAngle(), ammoIndex);
 
                 ShootOrThrow(ammoEnt, angles[0].ToVec(), gunVelocity, gun, user,
-                    targetCoordinates: toMapBeforeRecoil); // Goobstation
+                    targetCoordinates: toMapBeforeRecoil, predictionSeed: GetHitscanSeed(gun, ammoIndex, 0)); // Goobstation + Starlight
                 shotProjectiles.Add(ammoEnt);
 
                 for (var i = 1; i < ammoSpreadComp.Count; i++)
@@ -225,14 +246,14 @@ public abstract partial class SharedGunSystem
                     SetProjectilePerfectHitEntities(newuid, user, new MapCoordinates(toMap, fromMap.MapId), shotRandom);
                     // Lavaland end
                     ShootOrThrow(newuid, angles[i].ToVec(), gunVelocity, gun, user,
-                        targetCoordinates: toMapBeforeRecoil); // Goob
+                        targetCoordinates: toMapBeforeRecoil, predictionSeed: GetHitscanSeed(gun, ammoIndex, i)); // Goob + Starlight
                     shotProjectiles.Add(newuid);
                 }
             }
             else
             {
                 ShootOrThrow(ammoEnt, mapDirection, gunVelocity, gun, user,
-                    targetCoordinates: toMapBeforeRecoil); // Goobstation
+                    targetCoordinates: toMapBeforeRecoil, predictionSeed: GetHitscanSeed(gun, ammoIndex, 0)); // Goobstation + Starlight
                 shotProjectiles.Add(ammoEnt);
             }
 
@@ -291,7 +312,7 @@ public abstract partial class SharedGunSystem
     // Goobstation end
 
     private void ShootOrThrow(EntityUid uid, Vector2 mapDirection, Vector2 gunVelocity, Entity<GunComponent> gun, EntityUid? user,
-        Vector2? targetCoordinates = null) // Goobstation
+        Vector2? targetCoordinates = null, int? predictionSeed = null) // Goobstation + Starlight
     {
         if (gun.Comp.Target is { } target && !TerminatingOrDeleted(target))
         {
@@ -299,6 +320,33 @@ public abstract partial class SharedGunSystem
             targeted.Target = target;
             Dirty(uid, targeted);
         }
+
+        // Starlight start - cartridges can hold hitscans
+        if (HasComp<HitscanAmmoComponent>(uid))
+        {
+            if (user != null)
+                SetPredictedShooter(uid, user.Value);
+
+            var coordinates = Comp<TransformComponent>(uid).Coordinates;
+            if (predictionSeed is { } predSeed)
+                OnClientPredictHitscan(gun, uid, predSeed, coordinates, mapDirection.Normalized(), mapDirection.Length(), user);
+
+            var hitscanEv = new HitscanTraceEvent
+            {
+                FromCoordinates = coordinates,
+                ToCoordinates = coordinates.Offset(mapDirection),
+                ShotDirection = mapDirection.Normalized(),
+                Gun = gun,
+                Shooter = user,
+                Target = gun.Comp.Target,
+                PredictionSeed = predictionSeed,
+            };
+            RaiseLocalEvent(uid, ref hitscanEv);
+
+            PredictedDel(uid);
+            return;
+        }
+        // Starlight end
 
         // Do a throw
         if (!HasComp<ProjectileComponent>(uid))

@@ -28,10 +28,12 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Collections;
 using Robust.Shared.Timing;
 using Content.Shared.Item.ItemToggle;
+using Content.Shared._Starlight.Weapons.Ranged.Systems;
+using Content.Shared._Starlight.Wieldable;
 
 namespace Content.Shared.Wieldable;
 
-public abstract class SharedWieldableSystem : EntitySystem
+public abstract partial class SharedWieldableSystem : EntitySystem
 {
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
@@ -43,13 +45,14 @@ public abstract class SharedWieldableSystem : EntitySystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedVirtualItemSystem _virtualItem = default!;
     [Dependency] private readonly UseDelaySystem _delay = default!;
+    [Dependency] private readonly GunShieldBraceSystem _shieldBrace = default!; // Starlight
 
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<WieldableComponent, UseInHandEvent>(OnUseInHand,
-            before: [typeof(SharedGunSystem), typeof(BatteryWeaponFireModesSystem), typeof(ItemToggleSystem)]); // Goob - before item toogle for hardlight bow
+            before: new[] { typeof(BatteryWeaponFireModesSystem), typeof(ItemToggleSystem) }); // Starlight + Goob
         SubscribeLocalEvent<WieldableComponent, ItemUnwieldedEvent>(OnItemUnwielded);
         SubscribeLocalEvent<WieldableComponent, GotUnequippedHandEvent>(OnItemLeaveHand);
         SubscribeLocalEvent<WieldableComponent, VirtualItemDeletedEvent>(OnVirtualItemDeleted);
@@ -131,13 +134,22 @@ public abstract class SharedWieldableSystem : EntitySystem
     private void OnGunRefreshModifiers(Entity<GunWieldBonusComponent> bonus, ref GunRefreshModifiersEvent args)
     {
         if (TryComp(bonus, out WieldableComponent? wield) &&
-            (wield.Wielded)
-            )
+            wield.Wielded)
         {
+            // Starlight-start: Add support for multiplicative bonuses
             args.MinAngle += bonus.Comp.MinAngle;
+            args.MinAngle /= bonus.Comp.MinAngleDivider;
             args.MaxAngle += bonus.Comp.MaxAngle;
+            args.MaxAngle /= bonus.Comp.MaxAngleDivider;
             args.AngleDecay += bonus.Comp.AngleDecay;
+            args.AngleDecay /= bonus.Comp.AngleDecayDivider;
             args.AngleIncrease += bonus.Comp.AngleIncrease;
+            args.AngleIncrease /= bonus.Comp.AngleIncreaseDivider;
+            // Starlight-end
+        }
+        else
+        {
+            _shieldBrace.ApplyBraceBonus(bonus, ref args);
         }
     }
 
@@ -172,6 +184,11 @@ public abstract class SharedWieldableSystem : EntitySystem
 
         if (component.WieldBonusExamineMessage != null)
             args.PushText(Loc.GetString(component.WieldBonusExamineMessage));
+
+        // Starlight-start
+        if (_shieldBrace.TryGetBraceExamineMessage((uid, component)) is { } braceMessage)
+            args.PushText(braceMessage);
+        // Starlight-end
     }
 
     private void AddToggleWieldVerb(EntityUid uid, WieldableComponent component, GetVerbsEvent<InteractionVerb> args)
@@ -199,8 +216,19 @@ public abstract class SharedWieldableSystem : EntitySystem
 
     private void OnUseInHand(EntityUid uid, WieldableComponent component, UseInHandEvent args)
     {
-        if (args.Handled)
+        if (args.Handled
+            || (TryComp<ChamberMagazineAmmoProviderComponent>(uid, out var chamber)
+                && chamber.BoltClosed == false
+                && _hands.GetEmptyHandCount(args.User) == 0))
             return;
+
+        // Starlight-start: a one-handed gun with several fire modes switches the mode on use.
+        if (!component.Wielded
+            && HasComp<UseBeforeWieldComponent>(uid)
+            && TryComp<BatteryWeaponFireModesComponent>(uid, out var fireModes)
+            && fireModes.FireModes.Count > 1)
+            return;
+        // Starlight-end
 
         if (!component.Wielded)
         {

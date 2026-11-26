@@ -41,6 +41,8 @@
         layer:
         - MachineLayer
   - type: EntityStorage
+  - type: ProjectileCover
+    proneOnly: true
   - type: PlaceableSurface
     isPlaceable: false # defaults to closed.
   - type: Damageable

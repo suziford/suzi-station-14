@@ -44,6 +44,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                     <BoxContainer Orientation="Vertical" Margin="10 6" SeparationOverride="4">
                         <CheckBox Name="AutoFocusSearchOnBuildMenuCheckBox" Text="{Loc 'ui-options-auto-focus-search-on-build-menu'}" />
                         <CheckBox Name="LockActionBarDragCheckBox" Text="{Loc 'ui-options-lock-action-bar-drag'}" />
+                        <CheckBox Name="WieldBeforeRackCheckBox" Text="{Loc 'ui-options-wield-before-rack'}" />
                         <ui:OptionSlider Name="InHandInteractionParticleScaleSlider" Title="{Loc 'ui-options-inhand-interaction-particle-scale'}" />
                     </BoxContainer>
                 </PanelContainer>

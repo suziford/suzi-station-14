@@ -1,4 +1,6 @@
+using Content.Shared._Starlight.Utility;
 using Robust.Shared.GameStates;
+using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Weapons.Hitscan.Components;
@@ -26,4 +28,18 @@ public sealed partial class HitscanBasicVisualsComponent : Component
     /// </summary>
     [DataField]
     public SpriteSpecifier? ImpactFlash;
+
+    // Starlight start
+    /// <summary>
+    /// The bullet that gets displayed for the hitscan rapidly for the client
+    /// </summary>
+    [DataField]
+    public ExtendedSpriteSpecifier? Bullet;
+
+    /// <summary>
+    /// The speed of the projectile to display if Bullet has a value
+    /// </summary>
+    [DataField]
+    public float Speed = 315f; // 9mm bullet speed
+    // Starlight end
 }

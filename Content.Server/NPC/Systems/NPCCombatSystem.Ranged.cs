@@ -161,7 +161,7 @@ public sealed partial class NPCCombatSystem
 
                 // For consistency with NPC steering.
                 var collisionGroup = comp.UseOpaqueForLOSChecks ? CollisionGroup.Opaque : (CollisionGroup.Impassable | CollisionGroup.InteractImpassable);
-                comp.TargetInLOS = _interaction.InRangeUnobstructed(uid, comp.Target, distance + 0.1f, collisionGroup);
+                comp.TargetInLOS = _hidingWitness.CanSee(uid, comp.Target, distance + 0.1f, collisionGroup); // Starlight-edit
             }
 
             if (!comp.TargetInLOS)
@@ -239,7 +239,7 @@ public sealed partial class NPCCombatSystem
                 return;
             }
 
-            _gun.AttemptShoot(uid, gun, targetCordinates, comp.Target);
+            _gun.AttemptShoot(uid, gun, targetCordinates, _hidingWitness.GetAttackTarget(uid, comp.Target)); // Starlight-edit
 
             break;
 

@@ -1,34 +1,34 @@
-// <Trauma>
-using Content.Shared._Trauma.Projectiles;
-using Robust.Shared.Network;
-using Robust.Shared.Timing;
-// </Trauma>
+using System.Linq;
 using System.Numerics;
+using Content.Shared._Starlight.Weapons.Cover.Systems;
+using Content.Shared._Starlight.Weapons.Hitscan.Events;
 using Content.Shared.Administration.Logs;
-using Content.Shared.Damage.Components;
 using Content.Shared.Database;
+using Content.Shared.Mech.Components;
+using Content.Shared.Tag;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Hitscan.Events;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
+using Robust.Shared.Network;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
-using Robust.Shared.Utility;
+using Robust.Shared.Random;
 
 namespace Content.Shared.Weapons.Hitscan.Systems;
 
-public sealed class HitscanBasicRaycastSystem : EntitySystem
+public sealed partial class HitscanBasicRaycastSystem : EntitySystem
 {
-    // <Trauma>
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly INetManager _net = default!;
-    // </Trauma>
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly ISharedAdminLogManager _log = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly IRobustRandom _rand = default!;
+    [Dependency] private readonly SharedProjectileCoverSystem _cover = default!;
 
     private EntityQuery<HitscanBasicVisualsComponent> _visualsQuery;
 
@@ -44,26 +44,36 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
     private void OnHitscanFired(Entity<HitscanBasicRaycastComponent> ent, ref HitscanTraceEvent args)
     {
         var shooter = args.Shooter ?? args.Gun;
-        var mapCords = _transform.ToMapCoordinates(args.FromCoordinates);
-        var ray = new CollisionRay(mapCords.Position, args.ShotDirection, (int) ent.Comp.CollisionMask);
-        var rayCastResults = _physics.IntersectRay(mapCords.MapId, ray, ent.Comp.MaxDistance, shooter, false);
+        // Starlight start - handle the shooter being the mech, not the pilot
+        if (TryComp<MechPilotComponent>(shooter, out var pilotA))
+            shooter = pilotA.Mech;
+        // Starlight end
 
-        var target = args.Target;
-        // If you are in a container, use the raycast result
-        // Otherwise:
-        //  1.) Hit the first entity that you targeted.
-        //  2.) Hit the first entity that doesn't require you to aim at it specifically to be hit.
-        var result = _container.IsEntityOrParentInContainer(shooter)
-            ? rayCastResults.FirstOrNull()
-            : rayCastResults.FirstOrNull(hit => hit.HitEntity == target
-                                                || CompOrNull<RequireProjectileTargetComponent>(hit.HitEntity)?.Active != true);
+        var mapCords = _transform.ToMapCoordinates(args.FromCoordinates);
+        var toMap = args.ToCoordinates.IsValid(EntityManager)
+            ? _transform.ToMapCoordinates(args.ToCoordinates)
+            : new MapCoordinates(mapCords.Position + args.ShotDirection * ent.Comp.MaxDistance, mapCords.MapId);
+        var pointer = (toMap.Position - mapCords.Position).Length();
+
+        var ray = new CollisionRay(mapCords.Position, args.ShotDirection, (int) ent.Comp.CollisionMask);
+        var rayCastResults = _physics.IntersectRay(mapCords.MapId, ray, ent.Comp.MaxDistance, shooter, false).ToList();
+
+        var lagEv = new HitscanLagCompensationEvent(args.Shooter, shooter, mapCords.MapId, mapCords.Position,
+            args.ShotDirection, ent.Comp.MaxDistance, (int) ent.Comp.CollisionMask, rayCastResults);
+        RaiseLocalEvent(ref lagEv);
+
+        var result = SelectHit(ent, shooter, mapCords, args.ShotDirection, pointer, args.Target, rayCastResults, args.PredictionSeed);
 
         var distanceTried = result?.Distance ?? ent.Comp.MaxDistance;
 
-        // Do visuals without an event. They should always happen and putting it on the attempt event is weird!
-        // If more stuff gets added here, it should probably be turned into an event.
-        // Trauma - pass whoever predicted the shot, reflections keep the original shooter
-        FireEffects(args.FromCoordinates, distanceTried, args.ShotDirection.ToAngle(), ent.Owner, CompOrNull<PredictedShooterComponent>(ent)?.Shooter);
+        var isRoot = false;
+        if (args.OutputTrace is null)
+        {
+            args.OutputTrace = new List<HitscanTrace>();
+            isRoot = true;
+        }
+
+        args.OutputTrace.Add(GenerateTraceStep(args.FromCoordinates, distanceTried, args.ShotDirection.ToAngle(), result?.HitEntity));
 
         // Admin logging
         if (result?.HitEntity != null)
@@ -79,36 +89,31 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
             Gun = args.Gun,
             Shooter = args.Shooter,
             HitEntity = result?.HitEntity,
+            OutputTrace = args.OutputTrace,
+            HitPosition = result?.HitPos,
+            PredictionSeed = args.PredictionSeed,
         };
 
         var attemptEvent = new AttemptHitscanRaycastFiredEvent { Data = data };
         RaiseLocalEvent(ent, ref attemptEvent);
 
         if (attemptEvent.Cancelled)
+        {
+            if (isRoot)
+                FireEffects(ent, args.OutputTrace, args.Shooter, args.Gun, args.PredictionSeed);
             return;
+        }
 
         var hitEvent = new HitscanRaycastFiredEvent { Data = data };
         RaiseLocalEvent(ent, ref hitEvent);
+
+        if (isRoot)
+            FireEffects(ent, args.OutputTrace, args.Shooter, args.Gun, args.PredictionSeed);
     }
 
-    /// <summary>
-    /// Create visual effects for the fired hitscan weapon.
-    /// </summary>
-    /// <param name="fromCoordinates">Location to start the effect.</param>
-    /// <param name="distance">Distance of the hitscan shot.</param>
-    /// <param name="shotAngle">Angle of the shot.</param>
-    /// <param name="hitscanUid">The hitscan entity itself.</param>
-    private void FireEffects(EntityCoordinates fromCoordinates, float distance, Angle shotAngle, EntityUid hitscanUid,
-        EntityUid? predictingUser) // Trauma
+    private HitscanTrace GenerateTraceStep(EntityCoordinates fromCoordinates, float distance, Angle shotAngle, EntityUid? entity = null)
     {
-        if (distance == 0 || !_visualsQuery.TryComp(hitscanUid, out var vizComp))
-            return;
-
-        var sprites = new List<(NetCoordinates coordinates, Angle angle, SpriteSpecifier sprite, float scale)>();
         var fromXform = Transform(fromCoordinates.EntityId);
-
-        // We'll get the effects relative to the grid / map of the firer
-        // Look you could probably optimise this a bit with redundant transforms at this point.
 
         var gridUid = fromXform.GridUid;
         if (gridUid != fromCoordinates.EntityId && TryComp(gridUid, out TransformComponent? gridXform))
@@ -123,52 +128,50 @@ public sealed class HitscanBasicRaycastSystem : EntitySystem
             shotAngle -= _transform.GetWorldRotation(fromXform);
         }
 
-        if (distance >= 1f)
+        var shotVec = shotAngle.ToVec().Normalized();
+
+        return new HitscanTrace
         {
-            if (vizComp.MuzzleFlash != null)
-            {
-                var coords = fromCoordinates.Offset(shotAngle.ToVec().Normalized() / 2);
-                var netCoords = GetNetCoordinates(coords);
+            Angle = shotAngle,
+            Distance = distance,
+            // We don't draw muzzle or travel effects if we're at point-blank range, just impact effects
+            MuzzleCoordinates = distance > 1f ? GetNetCoordinates(fromCoordinates.Offset(shotVec / 2)) : null,
+            TravelCoordinates = distance > 1f ? GetNetCoordinates(fromCoordinates.Offset(shotVec * (distance + 0.5f) / 2)) : null,
+            ImpactCoordinates = GetNetCoordinates(fromCoordinates.Offset(shotVec * distance)),
+            ImpactedEnt = GetNetEntity(entity),
+        };
+    }
 
-                sprites.Add((netCoords, shotAngle, vizComp.MuzzleFlash, 1f));
-            }
+    private void FireEffects(EntityUid hitscan, List<HitscanTrace> traces, EntityUid? shooter, EntityUid gun, int? predictionSeed)
+    {
+        if (!_net.IsServer)
+            return;
 
-            if (vizComp.TravelFlash != null)
-            {
-                var coords = fromCoordinates.Offset(shotAngle.ToVec() * (distance + 0.5f) / 2);
-                var netCoords = GetNetCoordinates(coords);
+        if (!_visualsQuery.TryComp(hitscan, out var visuals))
+            return;
 
-                sprites.Add((netCoords, shotAngle, vizComp.TravelFlash, distance - 1.5f));
-            }
-        }
-
-        if (vizComp.ImpactFlash != null)
+        var hitscanEvent = new SharedGunSystem.HitscanEvent
         {
-            var coords = fromCoordinates.Offset(shotAngle.ToVec() * distance);
-            var netCoords = GetNetCoordinates(coords);
+            MuzzleFlash = visuals.MuzzleFlash,
+            TravelFlash = visuals.TravelFlash,
+            ImpactFlash = visuals.ImpactFlash,
+            Bullet = visuals.Bullet,
+            Speed = visuals.Speed,
+            Traces = traces,
+            Shooter = GetNetEntity(shooter),
+            Gun = GetNetEntity(gun),
+            PredictionSeed = predictionSeed,
+            Prototype = MetaData(hitscan).EntityPrototype?.ID,
+        };
 
-            sprites.Add((netCoords, shotAngle.FlipPositive(), vizComp.ImpactFlash, 1f));
-        }
+        var filter = Filter.Empty();
+        var sampledPositions = traces
+            .Select(x => GetCoordinates(x.MuzzleCoordinates ?? x.ImpactCoordinates))
+            .Where(x => x.IsValid(EntityManager))
+            .ToList();
+        foreach (var pos in sampledPositions)
+            filter.Merge(Filter.Pvs(pos, entityMan: EntityManager));
 
-        if (sprites.Count > 0)
-        {
-            // <Trauma> - raise it locally on the client that predicted the shot
-            var ev = new SharedGunSystem.HitscanEvent
-            {
-                Sprites = sprites,
-            };
-            if (_net.IsServer)
-            {
-                var filter = Filter.Pvs(fromCoordinates, entityMan: EntityManager);
-                if (predictingUser != null)
-                    filter.RemovePlayerByAttachedEntity(predictingUser.Value);
-                RaiseNetworkEvent(ev, filter);
-            }
-            else if (_timing.IsFirstTimePredicted) // don't spam multiple hitscan effects
-            {
-                RaiseLocalEvent(ev);
-            }
-            // </Trauma>
-        }
+        RaiseNetworkEvent(hitscanEvent, filter);
     }
 }

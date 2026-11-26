@@ -2,11 +2,11 @@
 
 - type: entity
   id: BulletCaselessRifle
-  parent: BaseBullet
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   name: bullet (9.5mm HP) # Goobstation edit
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 25 # Goobstation edit
@@ -14,11 +14,11 @@
 
 - type: entity
   id: BulletCaselessRiflePractice
-  parent: BaseBulletPractice
+  parent: BulletTrace
   categories: [ HideSpawnMenu ]
   name: bullet (9.5mm practice) # Goobstation edit
   components:
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Blunt: 2

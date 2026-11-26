@@ -7,12 +7,9 @@
   id: HighCaliberPelletShotgun
   name: pellet (8 Gauge carpshot)
   categories: [ HideSpawnMenu ]
-  parent: BaseBullet
+  parent: BulletTraceShotgun
   components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    state: buckshot
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 15
@@ -34,18 +31,13 @@
   id: HighCaliberPelletShotgunIncendiary
   name: pellet (8 Gauge incendiary)
   categories: [ HideSpawnMenu ]
-  parent: BaseBulletIncendiary
+  parent: BulletTraceIncendiary
   components:
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-      state: buckshot-flare
-    - type: Projectile
+    - type: HitscanBasicDamage
       damage:
         types:
           Blunt: 6
           Heat: 6
-    - type: IgnitionSource
-      ignited: true
 
 - type: entity
   id: HighCaliberPelletShotgunIncendiarySpread
@@ -63,12 +55,9 @@
   id: HighCaliberPelletShotgunPractice
   name: pellet (8 Gauge practice)
   categories: [ HideSpawnMenu ]
-  parent: BaseBulletPractice
+  parent: BulletTrace
   components:
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-      state: buckshot
-    - type: Projectile
+    - type: HitscanBasicDamage
       damage:
         types:
           Blunt: 2
@@ -89,12 +78,9 @@
   id: HighCaliberPelletShotgunUranium
   name: pellet (8 Gauge uranium)
   categories: [ HideSpawnMenu ]
-  parent: BaseBullet
+  parent: BulletTraceShotgun
   components:
-    - type: Sprite
-      sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-      state: depleted-uranium
-    - type: Projectile
+    - type: HitscanBasicDamage
       damage:
         types:
           Radiation: 8
@@ -116,12 +102,9 @@
   id: PelletShotgunSlugHighCaliber
   name: pellet (8 Gauge slug)
   categories: [ HideSpawnMenu ]
-  parent: BaseBullet
+  parent: BulletTrace
   components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    state: slug
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 65
@@ -208,17 +191,14 @@
   id: BulletSlugBeanbagHighCaliber
   name: beanbag (8 Gauge)
   categories: [ HideSpawnMenu ]
-  parent: BaseBullet
+  parent: BulletTrace
   components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    state: buckshot
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Blunt: 20 # ye-OUCH
-  - type: StaminaDamageOnCollide
-    damage: 80 # ye-OW
+  - type: HitscanStaminaDamage
+    staminaDamage: 80 # ye-OW
 
 - type: entity
   id: BulletShotgunHeavySlugSarin
@@ -362,12 +342,9 @@
   id: HighCaliberPelletGrenade
   name: pellet (MP-APERS)
   categories: [ HideSpawnMenu ]
-  parent: BaseBullet
+  parent: BulletTraceShotgun
   components:
-  - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    state: buckshot
-  - type: Projectile
+  - type: HitscanBasicDamage
     damage:
       types:
         Piercing: 6 # Total 120 damage

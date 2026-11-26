@@ -28,6 +28,7 @@
   id: FillLockerWarden
   table: !type:AllSelector
     children:
+    - id: MaterialSandbag12
     - id: FlashlightSeclite
     #- id: WeaponDisabler # Goobstation (Disablers in belts)
     - id: ClothingBeltSecurityFilled

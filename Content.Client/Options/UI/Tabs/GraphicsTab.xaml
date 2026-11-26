@@ -25,6 +25,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                         <CheckBox Name="ViewportLowResCheckBox" Text="{Loc 'ui-options-vp-low-res'}" />
                         <CheckBox Name="ParallaxLowQualityCheckBox" Text="{Loc 'ui-options-parallax-low-quality'}" />
                         <CheckBox Name="AmbientOcclusionCheckBox" Text="{Loc 'ui-options-ambient-occlusion'}" />
+                        <CheckBox Name="TracesCheckBox" Text="{Loc 'ui-options-traces-enabled'}" />
+                        <CheckBox Name="HolesCheckBox" Text="{Loc 'ui-options-holes-enabled'}" />
+                        <CheckBox Name="SparksCheckBox" Text="{Loc 'ui-options-sparks-enabled'}" />
+                        <CheckBox Name="HitscanPredictionCheckBox" Text="{Loc 'ui-options-hitscan-prediction'}" />
                     </BoxContainer>
                 </PanelContainer>
 

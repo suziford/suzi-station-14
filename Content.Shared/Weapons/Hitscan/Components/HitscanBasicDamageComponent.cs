@@ -14,4 +14,18 @@ public sealed partial class HitscanBasicDamageComponent : Component
     /// </summary>
     [DataField(required: true)]
     public DamageSpecifier Damage;
+
+    // Starlight start
+    /// <summary>
+    /// Should damage done by this hitscan ignore resistances?
+    /// </summary>
+    [DataField]
+    public bool IgnoreResistances = false;
+
+    /// <summary>
+    /// How much armor should this projectile ignore?
+    /// </summary>
+    [DataField]
+    public float ArmorPenetration = 0f;
+    // Starlight end
 }

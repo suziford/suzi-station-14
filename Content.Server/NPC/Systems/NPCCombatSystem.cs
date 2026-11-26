@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Server._Starlight.NPC.Systems;
 using Content.Server.Interaction;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared.Weapons.Melee;
@@ -24,6 +25,7 @@ public sealed partial class NPCCombatSystem : EntitySystem
     [Dependency] private readonly NPCSteeringSystem _steering = default!;
     [Dependency] private readonly SharedMeleeWeaponSystem _melee = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly NPCHidingWitnessSystem _hidingWitness = default!; // Starlight
 
     /// <summary>
     /// If disabled we'll move into range but not attack.
